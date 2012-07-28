@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+.bc_menu_content {
+	margin: 0;
+	line-height: 68px;
+	height: auto;
+	width: 72%;
+	margin-top: 5px;
+	margin-left: 14%;
+}
+
+.bc_menu_content #left {
+	float: left;
+	width: 75%;
+}
+
+.bc_menu_content #right {
+	float: right;
+	width: 25%;
+}
+
+.bc_menu_restaurant_title {
+	background: #3399FF;
+	font-size: 18px;
+	font-weight: bold;
+	height: 50px;
+}
+
+.bc_menu_restaurant_info {
+	color: #999999;
+}
+
+.bc_menu_title_info {
+	background: #00CCFF;
+	font-size: 12px;
+	font-weight: bold;
+	height: 50px;
+}
+
+.bc_menu_info {
+	color: #999999;
+}
+
+.menu_title,.menu_container,.menu_container {
+	clear: both;
+}
+
+
+.menu_title {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	background-color: #6666FF
+}
+
+.menu_layout {
+	font-size: 14px;
+	margin-bottom: 45px;
+}
+
+.menu_layout #menu1 {
+	float: left;
+	margin-left: 10px;
+}
+
+.menu_layout #menu2 {
+	float: right;
+}
+
+.menu_container {
+	width: 100%;
+}
+
+.menu_container #left {
+	float: left;
+	margin-right: 150px;
+}
+
+.menu_container #right {
+	float: right;
+}

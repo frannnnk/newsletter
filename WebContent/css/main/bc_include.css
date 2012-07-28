@@ -1,0 +1,26 @@
+
+#banner_container {
+	width:100%;
+	height:108px;
+	background-color: 	#ff821a;
+	font-family: "微软雅黑","黑体","Lucida Sans Unicode", "Lucida Grande", sans-serif;	
+	z-index:10;
+}
+#baner_centralizer {
+	position:relative;
+	left:0px;
+	top:0px;
+	width:1000px;
+	height:108px;
+	left: 50%;
+	margin-left: -530px;
+}
+#banner_logo_common{
+	position:absolute;
+	left:20px;
+	top:5px;
+	width:360;
+	height:91;
+	overflow:hidden;
+	z-index:2;	
+}

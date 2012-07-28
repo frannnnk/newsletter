@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>反饋建議</title>
+
+<style type="text/css">
+
+body {
+	margin:0px;
+	padding:0px;
+}
+.submitBtn {
+	background-image: url(../picture/common/icons.png);
+	background-position:-478px -586px ;
+	background-repeat:no-repeat;
+	height:36px;
+	width:96px;
+	over-flow:hidden;
+	float:right;
+	margin:20px;
+	}
+.wodring {
+	
+	background-image: url(../picture/common/icons.png);
+	background-position:-0px -884px ;
+	background-repeat:no-repeat;
+	height:35px;
+	width:355px;
+	over-flow:hidden;
+	margin-bottom:10px;
+	}
+</style>
+
+<script type="text/javascript">
+function checkinput(){
+	if(document.getElementById("content").value==""){
+		document.getElementById("content").focus();
+		return false;
+	}else
+		return true;
+	
+}
+
+</script>
+
+</head>
+<body>
+
+<center >
+<form action="adviceprovideaction.action" onsubmit="return checkinput();" id="myform">
+
+<table>
+<tr><td align="left"><div class="wodring"></div></td></tr>
+<tr>
+<td><textarea rows=4 cols=56 name="content" id="content" value="" style="outline:none;line-height:23px; border:1px solid #A9BAC9; padding-left:4px; font-size:16px; font-family: '微软雅黑';"></textarea></td>
+</tr>
+<tr>
+<td>
+<input type="image" src="../picture/common/spacer.gif"  class="submitBtn" onclick="document.myform.submit();"/>
+</td>
+</tr>
+</table>
+</form>
+</center>
+<script type="text/javascript">
+document.getElementById("content").focus();
+</script>
+</body>
+</html>

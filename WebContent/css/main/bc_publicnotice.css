@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+#bg_canvas {
+	position: absolute;
+	left: 0px;
+	top: 130px;
+	width: 1020px;
+	height: 650px;
+	left: 50%;
+	margin-left: -510px;
+	z-index: -1;
+	background-color: #fff;
+	-moz-box-shadow: 0 0 30px 3px #ccc;
+	-webkit-box-shadow: 0 0 15px 3px #ccc;
+	box-shadow: 0 0 15px 3px #ccc;
+	font-family: "微软雅黑", "黑体", "Lucida Sans Unicode", "Lucida Grande",
+		sans-serif;
+}
+
+.nav-position {
+	padding: 14px 0 9px;
+	margin-left: 10px;
+	margin-right: 10px; border-bottom : 1px solid #DCDCDC;
+	font-size: 13px;
+	color: #333;
+	font-family: "微软雅黑", "黑体", "Lucida Sans Unicode", "Lucida Grande",
+		sans-serif;
+	border-bottom: 1px solid #DCDCDC
+}
+
+.content {
+	margin-top: 30px;
+	margin-left: 10px; margin-right : 10px;
+	line-height: 200%;
+	background-color: #fff;
+	margin-right: 10px;
+}
+.noticecontent {
+	margin-top: 60px;
+	margin-left: 108px;
+	margin-right: 108px;
+	line-height: 200%;
+	font-size: 15px;
+	font-family: "微软雅黑", "黑体", "Lucida Sans Unicode", "Lucida Grande",
+		sans-serif;
+	color:#820041;
+}

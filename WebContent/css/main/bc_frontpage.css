@@ -1,0 +1,99 @@
+.bc_content {
+	margin: 0;
+	line-height: 68px;
+	height:auto;
+	width: 72%;
+	margin-top: 5px;
+	margin-left: 14%;
+	
+}
+
+
+.bc_content,.recommendtitle,.recommendcontent{
+	clear: both;
+}
+.recommendcontent{
+
+margin-left:0;}
+
+.recommendtitle{
+margin-top:10px;
+}
+
+.recommendcontent ul{
+list-style:none;; margin:0;
+}
+
+.recommendcontent li {
+	float:left;
+	margin-right:5px;
+}
+
+.bc_content .bc_left {
+	float: left;
+	width: 78%;
+	border: 1px solid #00CC66;
+	background: #F7F7F7;
+	margin-right: 5px;
+}
+
+.bc_content .bc_right {
+	float: left;
+	width: 20%;
+	border: 1px solid #00CC66;
+	background: #F7F7F7;
+}
+
+.recommendtitle .t_left {
+	float: left;
+	font-weight:bold;
+	
+}
+
+.recommendtitle .t_right {
+	float: right;
+}
+
+
+.restaurantlayout {
+clear: both;
+}
+
+.restaurantlayout .res_picture {
+	float: left;
+	width: 20%;
+
+}
+
+.restaurantlayout .res_content {
+	float: right;
+	width: 78%;
+
+}
+
+.restaurantcontentlayout #left {
+    float: left;
+	width: 50%;
+}
+.restaurantcontentlayout #right {
+    float: right;
+	width: 40%;
+	margin-right:10%;
+}
+
+.foodcell {
+	border: 1px solid #00CC66;
+	background: #F7F7F7;
+	margin-bottom:300px;
+	height:10px;
+}
+
+.foodcell #picture{
+width:150px;
+height:130px;
+}
+.foodcell #contentcell{
+width:150px;
+height:50px;
+font-weight:bold;
+}

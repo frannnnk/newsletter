@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>訂單評價</title>
+
+<style type="text/css">
+.myButton {
+	-moz-box-shadow: inset 0px 0px 0px -1px #ffffff;
+	-webkit-box-shadow: inset 0px 0px 0px -1px #ffffff;
+	box-shadow: inset 0px 0px 0px -1px #ffffff;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed
+		), color-stop(1, #cac0f0) );
+	background: -moz-linear-gradient(center top, #ededed 5%, #cac0f0 100%);
+	filter: progid :         DXImageTransform.Microsoft.gradient (      
+		  startColorstr =    
+		    '#ededed', endColorstr =         '#cac0f0' );
+	background-color: #ededed;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+	border: 1px solid #e69ce6;
+	display: inline-block;
+	color: #573d57;
+	font-family: arial;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 7px 18px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #ffffff;
+}
+
+.myButton:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf
+		), color-stop(1, #ededed) );
+	background: -moz-linear-gradient(center top, #dfdfdf 5%, #ededed 100%);
+	filter: progid :     DXImageTransform.Microsoft.gradient (    
+		startColorstr =  
+		  '#dfdfdf', endColorstr =     '#ededed' );
+	background-color: #dfdfdf;
+}
+
+.myButton:active {
+	position: relative;
+	top: 1px;
+}
+
+body {
+	font-family: '微软雅黑';
+	"
+}
+</style>
+
+</head>
+
+<script type="text/javascript">
+	//截取url参数
+	function getParameter(name, cancelBubble) {
+		var r = new RegExp("(\\?|#|&)" + name + "=([^&#]*)(&|#|$)");
+		var m = location.href.match(r);
+		return (!m ? "" : m[2]);
+	}
+	function checkbeforeSubmit() {
+		if (document.getElementById("content").value == "") {
+			document.getElementById("content").focus();
+		} else {
+			var orderid = getParameter("orderid");
+			document.getElementById("orderid").value = orderid;
+			if (orderid != "") {
+				document.reviewform.submit();
+			} else
+				alert("系統故障，請刷新！");
+		}
+	}
+</script>
+
+<body>
+
+	<center>
+		<form action="mycommentaction.action" name="reviewform">
+			<table width=500>
+
+				<tr>
+					<td></td>
+					<td><textarea rows="9" cols="57" name="content" id="content"
+							value="" style="font-size: 16px; font-family: '微软雅黑';"></textarea>
+
+					</td>
+				</tr>
+				<tr width=470>
+					<td><input type="hidden" value="3" name="type"> <input
+						type="hidden" value="" name="orderid" id="orderid"></td>
+					<td><a href="javascript:checkbeforeSubmit()" class="myButton">提交</a>&nbsp;&nbsp;&nbsp;
+						<label><input type="radio" name="score" id="score"
+							value="1" checked />滿意</label>&nbsp;&nbsp;<label><input
+							type="radio" name="score" id="score" value="2" />一般</label>&nbsp;&nbsp;<label><input
+							type="radio" name="score" id="score" value="3" />不滿意</label></td>
+				</tr>
+			</table>
+		</form>
+
+	</center>
+	<script type="text/javascript">
+		document.getElementById("content").focus();
+	</script>
+</body>
+</html>

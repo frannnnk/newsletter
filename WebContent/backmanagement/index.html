@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<script src="/canteen/js/common.js"></script>
+<script
+	src="/canteen/js/jquery/jquery-1.3.2.min.js"></script>
+
+<script
+	src="/canteen/js/jquery/jquery.tools.min.js"></script>
+<script
+	src="/canteen/resources/tipTipv13/jquery.tipTip.js"></script>
+<script
+	src="/canteen/resources/tipTipv13/jquery.tipTip.minified.js"></script>
+<script src="/canteen/js/jquery/jquery.cookie.js"></script>
+
+
+
+<script type="text/javascript">
+
+//取消订单
+function finishallorder() {
+	if (confirm("確定要此操作？")) {
+		var url = 'finishallorder.action';
+		var params = {
+				
+		};	
+
+		$.post(url, params, callbackFun, 'text');
+	}
+}
+
+//回调方法.
+function callbackFun(data) {
+	if(data=="0"){
+		alert("更改成功!");
+	}
+	else{
+		alert("操作失败,请立马联系管理员,可能系统故障!");
+	}
+}
+
+</script>
+
+
+<style type="text/css">
+a {
+	text-decoration: none;
+}
+
+.left_commbtn a {
+	display: inline-block;
+	background: #D9B300;
+	border-bottom: 1px solid #D4D4D4;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	overflow: hidden;
+	zoom: 1;
+	color: #fff;
+}
+
+.left_commbtn a span {
+	display: block;
+	width: 15px;
+	line-height: 20px;
+	padding: 7px 3px 7px 5px;
+	font-family: "微软雅黑", "黑体", "Lucida Sans Unicode", "Lucida Grande",
+		sans-serif;
+	
+}
+
+.left_commbtn a:hover {
+	text-decoration: none;
+	background: #C6A300;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+
+<div class="left_commbtn" id="feedBackBtn" style="position:fixed; right:0;top:35%;">
+
+	<a href="javascript:giveFeedback('/canteen/feedback/offerfeedback.html');"><span>同易食飯講幾句</span></a>
+
+</div>
+
+
+	<br>
+	<font size="+2"> <a href="/canteen/restaurantmanagementInitaction.action">添加餐館</a>
+
+		<a href="/canteen/restaurantupdate.action?type=0">餐厅信息管理</a> 
+		<a href="addmap_location.jsp">地图位置管理</a> 
+		<a href="/canteen/ordermanagement.action?type=1&orderstate=1&requestpagenum=1" />订单管理</a>
+		<a href="/canteen/adviceresponseaction.action?requestPagenum=1">反馈管理</a> 
+		<a href="javascript:finishallorder()">完成所有已确认订单</a>
+		
+		</font>
+	<br>
+
+	<br>
+	<br>
+
+	<br>
+	<br>
+	<div>
+		<!-- JiaThis Button BEGIN -->
+		<div id="ckepop">
+			<span class="jiathis_txt">分享到：</span> <a class="jiathis_button_qzone">QQ空间</a>
+			<a class="jiathis_button_tsina">新浪微薄</a> <a
+				class="jiathis_button_tqq">腾讯微薄</a> <a class="jiathis_button_renren">人人网</a>
+			<a class="jiathis_button_twitter">twitter</a> <a
+				class="jiathis_button_fb">facebook</a> <a
+				href="http://www.jiathis.com/share"
+				class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis"
+				target="_blank">更多</a>
+		</div>
+		<script type="text/javascript">
+			var jiathis_config = {
+				url : "www.ecmeal.hk",
+				title : "我發現一個外賣網站，可以點中餐、西餐、各種餐……。推薦給你，以後不用再爲吃什麽煩惱啦",
+				ralateuid : {
+					"tsina" : "2458052944",
+					"tqq" : "bigcanteen"
+				},
+				hideMore : true
+			}
+		</script>
+		<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js"
+			charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+
+		<br> <br> <br> <br>
+
+		<!-- JiaThis Button BEGIN -->
+		<div id="jiathis_style_32x32">
+			<a class="jiathis_button_tsina"></a> <a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_renren"></a> <a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_twitter"></a> <a class="jiathis_button_fb"></a>
+			<a href="http://www.jiathis.com/share"
+				class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis"
+				target="_blank"></a>
+		</div>
+		<script type="text/javascript">
+			var jiathis_config = {
+				url : "www.ecmeal.hk",
+				title : "我發現一個外賣網站，可以點中餐、西餐、各種餐……。推薦給你，以後不用再爲吃什麽煩惱啦",
+				ralateuid : {
+					"tsina" : "2458052944"
+				},
+				hideMore : true
+			}
+		</script>
+		<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js"
+			charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+
+
+
+		<br> <br>
+		<iframe width="63" height="24" frameborder="0"
+			allowtransparency="true" marginwidth="0" marginheight="0"
+			scrolling="no" frameborder="No" border="0"
+			src="http://widget.weibo.com/relationship/followbutton.php?width=63&height=24&uid=2458052944&style=1&btn=red&dpc=1"></iframe>
+		<br>
+		<iframe width="230" height="24" frameborder="0"
+			allowtransparency="true" marginwidth="0" marginheight="0"
+			scrolling="no" frameborder="No" border="0"
+			src="http://widget.weibo.com/relationship/followbutton.php?width=230&height=24&uid=2458052944&style=3&btn=red&dpc=1"></iframe>
+		<br> <a href="http://weibo.com/2458052944?s=6uyXnP"
+			target="_blank"><img border="0"
+			src="http://service.t.sina.com.cn/widget/qmd/2458052944/20fe0d00/5.png" />
+		</a> <br>
+		<div id="txWB_W1"></div>
+		<script type="text/javascript">
+			var tencent_wb_name = "bigcanteen";
+			var tencent_wb_sign = "2374c66357e88d5431932487c90f26a47336639d";
+			var tencent_wb_style = "2";
+		</script>
+		<script type="text/javascript"
+			src="http://v.t.qq.com/follow/widget.js" charset="utf-8" /></script>
+	</div>
+
+	<br>
+	<br>
+
+	<!-- 力倬就用这个 -->
+	<!-- JiaThis Button BEGIN -->
+	<div id="ckepop">
+		<a class="jiathis_follow_tsina" rel="http://weibo.com/2458052944">易食飯的新浪微博</a>
+		<br> <a class="jiathis_follow_tqq"
+			rel="http://t.qq.com/bigcanteen">易食飯的騰訊微博</a><br> <a
+			class="jiathis_follow_renren" rel="http://www.renren.com">易食飯的人人网</a><br>
+		<a class="jiathis_follow_fb" rel="http://www.facebook.com">易食飯的facebook</a>
+
+	</div>
+	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js"
+		charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+
+
+
+
+	<br>
+	<br>
+
+	<!--Passit BUTTON BEGIN-->
+	<div class="passit_def_div">
+		<a class="passit_default" href="http://www.passit.cn/bookmark.html"
+			target="_blank">分享到 :</a>
+	</div>
+
+	<script type="text/javascript">
+		var passit_title = "";//自定义分享标题，删除和留空表示使用默认
+		var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+		var passit_content = "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+		var passit_image = "";//自定义分享图片，删除和留空表示不分享图片
+		var sina_appkey = "";//sina微博appkey,删除和留空表示使用默认
+		var qq_appkey = "";//腾讯微博appkey,删除和留空表示使用默认
+	</script>
+	<script type="text/javascript">
+		bookmark_service_div = "qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,more";
+		bookmark_service = "sinaweibo,qqweibo,qqkj,xnzt,facebook";
+	</script>
+	<script type="text/javascript"
+		src="http://www.passit.cn/js/passit_default_new.js?pub=0&simple=1"
+		charset="UTF-8"></script>
+	<!--Passit BUTTON END-->
+
+
+
+</body>
+</html>

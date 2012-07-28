@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+/* This CSS only works with IE.*/
+
+#searchInput {	
+	position:absolute;
+	top:10px;
+	left:190px;
+	z-index:3;
+	border:1px solid #ccc;
+	width:212px; /* Originally 232px ,miners padding left 10px and right 10px */
+	height:20px; 
+	background-image:none;
+	padding:3px;
+	outline: none;
+	font-family: "微软雅黑","黑体","Lucida Sans Unicode", "Lucida Grande", sans-serif;	font-size:15px;
+	color:#666;
+}
