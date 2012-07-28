@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+
+		<action name="checkaccount" class="controller.account.CheckAccountAction"
+			method="execute">
+		</action>
+
+		<action name="register" class="controller.account.RegisterAction"
+			method="execute">
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">${redirectpath}</param>
+			</result>
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="input">/account/login.jsp</result>
+			<result name="error">/notification/erro.jsp</result>
+		</action>
+
+		<action name="verifycode" class="controller.account.VerifyCodeImageAction"
+			method="execute">
+		</action>
+
+		<action name="login" class="controller.account.LoginAction"
+			method="execute">
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">${redirectpath}</param>
+			</result>
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="input">/account/login.jsp</result>
+			<result name="error">/notification/erro.jsp</result>
+		</action>
+
+		<action name="logout" class="controller.account.LogoutAction"
+			method="execute">
+			<result name="success" type="redirect">/index.jsp</result>
+		</action>
+
+		<action name="updateaccount" class="controller.account.UpdateAccountAction"
+			method="execute">
+			<result name="success">/personal/myaccount.jsp</result>
+			<result name="input">/account/login.jsp</result>
+		</action>
+
+		<action name="orderfillout" class="controller.order.OrderFilloutAction"
+			method="execute">
+			<result name="success">/order/orderconfirm.jsp</result>
+			<result name="input"  type="redirectAction">onlinerestaurant</result>
+			<result name="error">/notification/error.jsp</result>
+		</action>
+
+		<action name="ordersubmit" class="controller.order.OrderSubmitAction"
+			method="execute">
+			<result name="success">/order/ordersubmit.jsp</result>
+			<result name="error">/notification/error.jsp</result>
+			<result name="fail">/notification/error.jsp</result>
+			<result name="invalid.token">/notification/noSubmitAgain.html</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="token" />
+
+		</action>
+
+		<action name="myaddressinit" class="controller.address.AddressInitAction"
+			method="execute">
+			<result name="success">/personal/myaddress.jsp</result>
+			<result name="fail">/notification/erro.jsp</result>
+		</action>
+
+		<action name="myaddresssave" class="controller.address.AddressSaveAction"
+			method="execute">
+			<result name="success" type="redirectAction">myaddressinit</result>
+			<result name="input">/account/login.jsp</result>
+		</action>
+
+		<action name="myaddressdelete" class="controller.address.AddressDeleteAction"
+			method="execute">
+			<result name="success" type="redirectAction">myaddressinit</result>
+			<result name="input">/account/login.jsp</result>
+		</action>
+
+		<action name="myaddressdefaultset" class="controller.address.AddressDefaultSetAction"
+			method="execute">
+			<result name="success" type="redirectAction">myaddressinit</result>
+			<result name="input">/account/login.jsp</result>
+		</action>
+
+		<action name="myaddressupdate" class="controller.address.AddressUpdateAction"
+			method="execute">
+			<result name="success" type="redirectAction">myaddressinit</result>
+			<result name="input">/account/login.jsp</result>
+		</action>
+
+		<action name="myfavaction" class="controller.personal.MyFavAction"
+			method="execute">
+			<result name="success">/personal/myfav.jsp</result>
+			<result name="input">/account/login.jsp</result>
+		</action>
+
+		<action name="mycommentaction" class="controller.personal.MyReviewAction"
+			method="execute">
+			<result name="success">/personal/mycomment.jsp</result>
+			<result name="input">/account/login.jsp</result>
+		</action>
+
+		<action name="myorderstateupdateaction" class="controller.personal.MyOrderStateUpdateAction"
+			method="execute">
+			<result name="today" type="redirectAction">myordersearch?type=1</result>
+			<result name="history" type="redirectAction">myordersearch?type=2</result>
+			<result name="error">/notification/erro.jsp</result>
+		</action>
+
+
+		<action name="checkscopeavaliable" class="controller.map.CheckScopeAvaliableAction"
+			method="execute">
+		</action>
+
+		<action name="foodresinit"
+			class="controller.main.RecommendFoodRestaurantInitAction" method="execute">
+			<result name="success">/store/storedisplay.jsp</result>
+			<result name="input">/account/login.jsp</result>
+		</action>
+
+		<action name="restaurantmenuinitaction" class="controller.main.RestaurantMenuInitAction"
+			method="execute">
+			<result name="success">/store/store.jsp</result>
+			<result name="input">/account/login.jsp</result>
+		</action>
+
+		<action name="locationconfirmaction" class="controller.map.LocationConfirmAction"
+			method="execute">
+			<result name="success" type="redirectAction">
+				<param name="actionName">onlinerestaurant</param>
+
+			</result>
+			<result name="input">/map/map.jsp</result>
+		</action>
+
+
+		<action name="restaurantmanagementaction"
+			class="controller.backmanagement.RestaurantManagementAction" method="execute">
+			<result name="success" type="redirectAction">restaurantmanagementInitaction
+			</result>
+		</action>
+
+		<action name="restaurantmanagementInitaction"
+			class="controller.backmanagement.RestaurantManagementAction" method="execute">
+			<result name="success">/backmanagement/addrestaurant.jsp</result>
+		</action>
+
+		<action name="foodmanagementaction" class="controller.backmanagement.FoodmanagementAction"
+			method="execute">
+			<result name="initaddfood">/backmanagement/addfood.jsp</result>
+			<result name="initaddcategory">/backmanagement/addfoodcategory.jsp</result>
+		</action>
+
+		<action name="maplocationmanagementaction"
+			class="controller.backmanagement.MaplocationManagementAction" method="execute">
+			<result name="success">/backmanagement/addmap_location.jsp</result>
+
+		</action>
+
+		<action name="myordersearch" class="controller.personal.MyOrderSearchAction"
+			method="execute">
+			<result name="success">/personal/myorder.jsp</result>
+			<result name="today">/personal/myorder.jsp</result>
+			<result name="history">/personal/myhistoryorder.jsp</result>
+		</action>
+
+		<action name="ordermanagement" class="controller.backmanagement.OrdermanagementAction"
+			method="execute">
+			<result name="success">/backmanagement/ordermanagement.jsp</result>
+		</action>
+
+		<action name="foodrestaurantbypagingaction" class="controller.main.FoodRestaurantbyPagingAction"
+			method="execute">
+			<result name="success">/store/storedisplay.jsp</result>
+		</action>
+
+		<action name="adviceprovideaction" class="controller.advice.AdviceOfferAction"
+			method="execute">
+			<result name="success">/backmanagement/notice/advicesucess.html</result>
+		</action>
+
+		<action name="adviceresponseaction" class="controller.advice.AdviceResponseAction"
+			method="execute">
+			<result name="success">/backmanagement/feedbackManagement.jsp</result>
+		</action>
+
+		<action name="advicesearchaction" class="controller.advice.AdviceSearchAction"
+			method="execute">
+			<result name="success">/feedback/adviceFeedback.jsp</result>
+		</action>
+
+		<action name="mailsubscription" class="controller.mail.MailSubscriptionAction"
+			method="execute">
+			<result name="success">/feedback/adviceFeedback.jsp</result>
+		</action>
+
+		<action name="verifyaccount" class="controller.account.VerifyAccountAction"
+			method="execute">
+			<result name="success">/account/verify.jsp</result>
+		</action>
+
+		<action name="publicnotice" class="controller.infonotice.PublicNoticeRetriveAction"
+			method="execute">
+		</action>
+
+		<action name="broadcast" class="controller.infonotice.ReviewOrderBroadcastAction"
+			method="execute">
+		</action>
+
+		<action name="myinvitation" class="controller.personal.MyinvitationAction"
+			method="execute">
+			<result name="success">/personal/myinvitation.jsp</result>
+		</action>
+
+		<action name="restaurantupdate"
+			class="controller.backmanagement.RestaurantUpdateManagementAction"
+			method="execute">
+			<result name="basicinfo">/backmanagement/restaurantupdate.jsp</result>
+			<result name="scopeinfo">/backmanagement/resscopeupdate.jsp</result>
+		</action>
+
+		<action name="checkordersendprice" class="controller.order.CheckOrderSendprice"
+			method="execute">
+		</action>
+
+		<action name="useraskcoopaction" class="controller.advice.UserAskCoopAction"
+			method="execute">
+		</action>
+
+		<action name="admLogin" class="controller.backmanagement.AdmLoginAction"
+			method="execute">
+			<result name="success">/backmanagement/index.html</result>
+		</action>
+
+		<!-- below is new ecmeal -->
+		<action name="onlinerestaurant" class="controller.main.OnlineRestauAction"
+			method="execute">
+			<result name="success">/store/restaurant.jsp</result>
+			<result name="input" type="redirect">/index.jsp</result>
+		</action>
+		
+		<!-- order check amount action -->
+		<action name="orderamountcheck" class="controller.backmanagement.OrderCheckAction"
+			method="execute">
+			
+		</action>
+		
+			<!-- finish all order action -->
+		<action name="finishallorder" class="controller.backmanagement.OrderFinishAction"
+			method="execute">
+			
+		</action>
+		
+		
+		
+	</package>
+</struts>
