@@ -26,9 +26,9 @@ public class DaoSupport {
 	public DaoSupport() {
 		try {
 			ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/ecmeal");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/newsletter");
 		} catch (NamingException e) {
-			logger.error(e.getMessage()+"--java:comp/env/jdbc/ecmeal");
+			logger.error(e.getMessage()+"--java:comp/env/jdbc/newsletter");
 		}
 	}
 
@@ -38,11 +38,11 @@ public class DaoSupport {
 	 * @throws
 	 */
 	public Connection getConnection() {
-		logger.debug("获取DAO链接对象");
+		//logger.debug("获取DAO链接对象");
 		Connection con = null;
 		try {
 			con = ds.getConnection();
-			logger.debug("获取DAO链接对象成功!" + con.toString());
+			//logger.debug("获取DAO链接对象成功!" + con.toString());
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
 		}
@@ -58,10 +58,10 @@ public class DaoSupport {
 	 */
 	public void closeJDBCResource(Object resource) {
 		if (resource != null) {
-			logger.debug("closing JDBC Resource...");
+			//logger.debug("closing JDBC Resource...");
 			Class objclass = resource.getClass();
 			try {
-				System.out.println(objclass.getName());
+				//System.out.println(objclass.getName());
 				java.lang.reflect.Method method = objclass.getMethod("close",
 						null);
 				method.invoke(resource, null);

@@ -1,12 +1,15 @@
 package hk.franks.newsletter.dao;
 
 import hk.franks.newsletter.common.CommonFunction;
+import hk.franks.newsletter.controller.utils.CommonUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Date;
+
+import model.UsersModel;
 
 import org.apache.log4j.Logger;
 
@@ -18,8 +21,75 @@ import org.apache.log4j.Logger;
  * 
  */
 public class AccountRelateDao extends DaoSupport {
-	private static Logger logger = Logger.getLogger(AccountRelateDao.class
-			.getName()); // 日志对象;
+	
+	private Logger logger = Logger.getLogger(this.getClass()); // 日志对象;
+	
+	
+	
+	
+	
+	
+	
+	public UsersModel validateUser(String userid, String encryptedPwd) {
+		logger.debug("Dao now checking user with id: "+ userid);
+		
+		Connection con = getConnection();
+		String sql = "SELECT * FROM USERS WHERE EMAIL=? AND PASSWORD=? ";
+		
+		PreparedStatement pres = null;
+		ResultSet rs = null;
+		
+		UsersModel resultModel = null;
+		
+		try {
+			pres = con.prepareStatement(sql);
+			pres.setString(1, userid);
+			pres.setString(2, encryptedPwd);
+			
+			rs = pres.executeQuery();
+			
+			if (rs.next()){
+				resultModel = new UsersModel();
+				resultModel.setEmail(rs.getString("EMAIL"));
+				resultModel.setUserId(rs.getInt("USER_ID"));
+				resultModel.setLastLogin(rs.getDate("LAST_LOGIN"));
+				resultModel.setStatus(rs.getString("STATUS"));
+			}
+			
+			
+			if (!CommonUtil.isExNull(resultModel)) {
+				logger.debug("Login Succeed");
+			} else {
+				logger.debug("Login Failed. User with Email:"+userid+" is not exist or password does not match our record.");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		} finally {
+			try {
+				closeJDBCResource(rs);
+				closeJDBCResource(pres);
+				closeJDBCResource(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e.getMessage());
+			}
+		}
+		
+		return resultModel;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * 新增账户
@@ -107,52 +177,7 @@ public class AccountRelateDao extends DaoSupport {
 		return flag;
 	}
 
-	/**
-	 * 登录效验账户
-	 * 
-	 * @param userid
-	 *            用户名
-	 * @param password
-	 *            加密后的密码
-	 * @return 是否合法用户 true-合法; false-不合法.
-	 */
-	public boolean validateUser(String userid, String password) {
-		logger.debug("登录效验账户");
-		Connection con = getConnection();
-		String sql = "SELECT COUNT(*) FROM ACCOUNT WHERE USERID=? AND PASSWORD=?";
-		PreparedStatement pres = null;
-		ResultSet set = null;
-		boolean flag; // 是否合法标志.
-		try {
-			pres = con.prepareStatement(sql);
-			pres.setString(1, userid);
-			pres.setString(2, password);
-			set = pres.executeQuery();
-			set.next();
-			int count = set.getInt(1);
-			if (count == 1) {
-				flag = true;
-				logger.debug("登录效验账户成功");
-			} else {
-				flag = false;
-				logger.debug("登录效验账户失败");
-			}
-
-		} catch (Exception e) {
-			flag = false;
-			logger.error(e.getMessage());
-		} finally {// 关闭资源.
-			try {
-				closeJDBCResource(set);
-				closeJDBCResource(pres);
-				closeJDBCResource(con);
-			} catch (Exception e) {
-
-				logger.error(e.getMessage());
-			}
-		}
-		return flag;
-	}
+	
 
 	/**
 	 * insert last login time
@@ -177,6 +202,35 @@ public class AccountRelateDao extends DaoSupport {
 				logger.error(e.getMessage());
 			}
 		}
+	}
+	
+	
+	
+	public boolean updateLastLoginDate(String userEmail){
+		Connection con = getConnection();
+		PreparedStatement pres = null;
+		String sql = "UPDATE USERS SET LAST_LOGIN = SYSDATE() WHERE EMAIL = ? ";
+		
+		boolean succeed = false;
+		
+		try {
+			pres = con.prepareStatement(sql);
+			pres.setString(1, userEmail);
+			succeed = pres.executeUpdate()>0?true:false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		} finally {// 关闭资源.
+			try {
+				closeJDBCResource(pres);
+				closeJDBCResource(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e.getMessage());
+			}
+		}
+		
+		return succeed;
 	}
 	
 	/**

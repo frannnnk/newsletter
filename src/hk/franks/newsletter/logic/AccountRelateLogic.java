@@ -2,6 +2,7 @@ package hk.franks.newsletter.logic;
 
 import hk.franks.newsletter.common.CommonFunction;
 import hk.franks.newsletter.common.Constant;
+import hk.franks.newsletter.controller.utils.CommonUtil;
 import hk.franks.newsletter.dao.AccountRelateDao;
 import hk.franks.newsletter.logic.encryption.EncryptFunction;
 import hk.franks.newsletter.logic.encryption.MD5;
@@ -10,6 +11,8 @@ import hk.franks.newsletter.logic.mail.MailFuncion;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 
+
+import model.UsersModel;
 
 import org.apache.log4j.Logger;
 
@@ -26,6 +29,46 @@ public class AccountRelateLogic {
 	private AccountRelateDao dao = new AccountRelateDao(); // 数据库操作对象.
 	private MailFuncion mail = new MailFuncion();
 	private ReviewFavoriteBonusLogic bonuslogic = new ReviewFavoriteBonusLogic();
+	
+	
+	
+	
+	
+	/**
+	 * 登录效验
+	 * 
+	 * @param userid
+	 *            用户的EMAIL地址
+	 * @param password
+	 *            encrypted Password.
+	 * @return
+	 */
+	public UsersModel loginValidate(String userid, String encrypedPassword) {
+		logger.debug("Executing loginValidate");
+		UsersModel user = null;
+		try {
+			user = dao.validateUser(userid, encrypedPassword);
+			
+			if(!CommonUtil.isExNull(user)){
+				dao.updateLastLoginDate(user.getEmail());
+			}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+		logger.debug("Executing loginValidate Complete");
+		return user;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * 账户注册操作
@@ -95,57 +138,11 @@ public class AccountRelateLogic {
 		return dao.checkAccount(userid);
 	}
 
-	/**
-	 * 登录效验
-	 * 
-	 * @param userid
-	 *            用户的EMAIL地址
-	 * @param password
-	 *            未加密的密码.
-	 * @return
-	 */
-	public boolean loginValidate(String userid, String password) {
-		logger.debug("用户登录效验");
-		boolean flag = false;
-		try {
-			String encrypedPassword = MD5.MD5_Encryption(password);// 密码加密;
-			flag = dao.validateUser(userid, encrypedPassword);
-			if(flag==true){
-				Timestamp currenttimestamp = CommonFunction.getCurrentTimestamp();
-				dao.insertLogintimeRecord(userid, currenttimestamp);
-			}
-				
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-		return flag;
-	}
+	
+	
+	
+	
 
-	/**
-	 * 登录效验
-	 * 
-	 * @param userid
-	 *            用户的EMAIL地址
-	 * @param encryptpassword
-	 *            加密后的密码.
-	 * @return
-	 */
-	public boolean loginValidatebyEncryptpassword(String userid,
-			String encryptpassword) {
-		logger.debug("用户登录效验");
-		boolean flag = false;
-		try {
-			flag = dao.validateUser(userid, encryptpassword);
-			if(flag==true){
-				Timestamp currenttimestamp = CommonFunction.getCurrentTimestamp();
-				dao.insertLogintimeRecord(userid, currenttimestamp);
-			}
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			flag = false;
-		}
-		return flag;
-	}
 
 	/**
 	 * 获取用户的昵称.
