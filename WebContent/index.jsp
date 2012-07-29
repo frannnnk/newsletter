@@ -10,8 +10,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Title will be insert by this file -->
 <%@ include file="include/head.jsp" %>
-<link rel="stylesheet" type="text/css" href="css/main.css" />
-<script src="script/main.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  $('#enter').delay(1800).fadeIn(1000);
+});
+
+
+</script>
 
 <!--[if IE]>
         <link rel="stylesheet" type="text/css"
@@ -24,6 +32,6 @@
 <div style="width:550px; border-top:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;margin-top: -50px; margin-left: -275px; padding-top:30px;padding-bottom:30px;" class="position_centered_fixed font_NeoSansRegular">	
 	<span style="font-size:30px;">Welcome to our <span style="font-size:30px;font-weight:bolder;">Friendly Tattler</span> project.</span>
 </div>
-<input  class="formee-button position_centered_fixed font_NeoSansRegular" style="wdith:100px;margin-top: 80px; margin-left: -50px;" type="button" value="Enter" />
+<input  id="enter" class="formee-button position_centered_fixed font_NeoSansRegular" style="wdith:100px;margin-top: 80px; margin-left: -50px;display:none;" type="button" value="Enter" />
 </body>
 </html>
