@@ -1,0 +1,1293 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="hk.franks.newsletter.pojo.RestaurantPojo"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>NewsLetter -- Login</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- Title will be insert by this file -->
+		<%@ include file="include/head.jsp"%>
+
+
+
+		<script>
+	$(document).ready(function() {
+		$('#enter').delay(1800).fadeIn(1000);
+	});
+
+	function login() {
+
+		// encrypt password
+		$('#encryptedPassword').val(hex_md5($('#encryptedPassword').val()));
+
+		$.post("login.action?action=login", $('#loginForm').serialize(),
+				function(data) {
+					//alert(data);
+
+					var obj = jQuery.parseJSON(data);
+
+					if ("S" == obj.result) {
+						loginSucceed();
+					} else {
+						loginError();
+					}
+
+				});
+
+	}
+
+	function loginSucceed() {
+		$('#encryptedPassword').val("");
+		window.open("member/main.jsp", "_self");
+	}
+
+	function loginError(msg) {
+
+		$('#encryptedPassword').val("");
+
+		$("#msg").addClass("formee-msg-error");
+		$("#msg").html("Error La");
+		//$("#msg").fadeIn("slow");
+		$("#loginBox").effect("shake", {
+			times : 5
+		}, 50);
+
+	}
+</script>
+
+		<!--[if IE]>
+        <link rel="stylesheet" type="text/css"
+			href="<%=request.getContextPath()%>/css/main/bc_index_IE_only.css" />
+		<link rel="stylesheet" type="text/css"
+			href="<%=request.getContextPath()%>/css/main/bc_common_IE_only.css" />
+<![endif]-->
+
+<style>
+	.legend_css {
+		font-size:13px;
+		color:#999;
+		margin:6px;
+	}
+</style>
+
+
+	</head>
+	
+	<body>
+		<form action="" name="loginForm" id="loginForm">
+			<div
+				style="width: 550px; border-bottom: 1px solid #d9d9d9; margin-top: -300px; margin-left: -275px; padding-top: 30px; padding-bottom: 30px;"
+				class="position_centered_absolute font_NeoSansRegular formee">
+				<span style="font-size: 30px;"><span
+					style="font-size: 30px; font-weight: bolder;">Join Us</span>
+				</span>
+			</div>
+
+			<div
+				style="width: 550px; margin-top: -230px; margin-left: -275px; padding-top: 30px; padding-bottom: 30px;"
+				class="position_centered_absolute font_NeoSansRegular formee">
+				<span style="font-size: 17px; line-height: 110%">New members
+					are always welcome. <br />
+					<br />
+					<span style="font-size: 14px; color: #999;">Please read the
+						brief intro. of our project first, then complete below request
+						form. We will process your request within 2 working days. Login
+						details will be sent to your email afterwards.</span>
+				</span>
+			</div>
+
+			<div id="msg"
+				style="width: 390px; margin-top: -185px; margin-left: -235px; display: none; font-size: 20px;"
+				class="position_centered_absolute font_NeoSansRegular formee "></div>
+
+
+			<div id="loginBox"
+				style="width: 550px; margin-top: -105px; margin-left: -275px; padding-top: 30px; padding-bottom: 30px;"
+				class="position_centered_absolute font_NeoSansRegular formee">
+
+				<fieldset>
+					<div class="login" style="margin: 30px;">
+						<div class="grid-12-12">
+							<label>
+								Email
+								<em class="formee-req">*</em>
+							</label>
+							<input type="text" value="" name="userid" />
+						</div>
+
+						<div class="grid-12-12">
+							<label>
+								Location
+								<em class="formee-req">*</em>
+							</label>
+							<select class="formee-medium">
+								<option value="">
+									Select One
+								</option>
+								<option value="af">
+									Afghanistan
+								</option>
+								<option value="ax">
+									Aland Islands
+								</option>
+								<option value="al">
+									Albania
+								</option>
+								<option value="dz">
+									Algeria
+								</option>
+								<option value="as">
+									American Samoa
+								</option>
+								<option value="ad">
+									Andorra
+								</option>
+								<option value="ao">
+									Angola
+								</option>
+								<option value="ai">
+									Anguilla
+								</option>
+								<option value="aq">
+									Antarctica
+								</option>
+								<option value="ag">
+									Antigua and Barbuda
+								</option>
+								<option value="ar">
+									Argentina
+								</option>
+								<option value="am">
+									Armenia
+								</option>
+								<option value="aw">
+									Aruba
+								</option>
+								<option value="au">
+									Australia
+								</option>
+								<option value="at">
+									Austria
+								</option>
+								<option value="az">
+									Azerbaijan
+								</option>
+								<option value="bs">
+									Bahamas
+								</option>
+								<option value="bh">
+									Bahrain
+								</option>
+								<option value="bd">
+									Bangladesh
+								</option>
+								<option value="bb">
+									Barbados
+								</option>
+								<option value="by">
+									Belarus
+								</option>
+								<option value="be">
+									Belgium
+								</option>
+								<option value="bz">
+									Belize
+								</option>
+								<option value="bj">
+									Benin
+								</option>
+								<option value="bm">
+									Bermuda
+								</option>
+								<option value="bt">
+									Bhutan
+								</option>
+								<option value="bo">
+									Bolivia
+								</option>
+								<option value="ba">
+									Bosnia and Herzegovina
+								</option>
+								<option value="bw">
+									Botswana
+								</option>
+								<option value="bv">
+									Bouvet Island
+								</option>
+								<option value="br">
+									Brazil
+								</option>
+								<option value="io">
+									British Indian Ocean Territory
+								</option>
+								<option value="vg">
+									British Virgin Islands
+								</option>
+								<option value="bn">
+									Brunei
+								</option>
+								<option value="bg">
+									Bulgaria
+								</option>
+								<option value="bf">
+									Burkina Faso
+								</option>
+								<option value="bi">
+									Burundi
+								</option>
+								<option value="kh">
+									Cambodia
+								</option>
+								<option value="cm">
+									Cameroon
+								</option>
+								<option value="ca">
+									Canada
+								</option>
+								<option value="cv">
+									Cape Verde
+								</option>
+								<option value="ky">
+									Cayman Islands
+								</option>
+								<option value="cf">
+									Central African Republic
+								</option>
+								<option value="td">
+									Chad
+								</option>
+								<option value="cl">
+									Chile
+								</option>
+								<option value="cn">
+									China
+								</option>
+								<option value="cx">
+									Christmas Island
+								</option>
+								<option value="cc">
+									Cocos (Keeling) Islands
+								</option>
+								<option value="co">
+									Colombia
+								</option>
+								<option value="km">
+									Union of the Comoros
+								</option>
+								<option value="cg">
+									Congo
+								</option>
+								<option value="ck">
+									Cook Islands
+								</option>
+								<option value="cr">
+									Costa Rica
+								</option>
+								<option value="hr">
+									Croatia
+								</option>
+								<option value="cu">
+									Cuba
+								</option>
+								<option value="cy">
+									Cyprus
+								</option>
+								<option value="cz">
+									Czech Republic
+								</option>
+								<option value="cd">
+									Democratic Republic of Congo
+								</option>
+								<option value="dk">
+									Denmark
+								</option>
+								<option value="xx">
+									Disputed Territory
+								</option>
+								<option value="dj">
+									Djibouti
+								</option>
+								<option value="dm">
+									Dominica
+								</option>
+								<option value="do">
+									Dominican Republic
+								</option>
+								<option value="tl">
+									East Timor
+								</option>
+								<option value="ec">
+									Ecuador
+								</option>
+								<option value="eg">
+									Egypt
+								</option>
+								<option value="sv">
+									El Salvador
+								</option>
+								<option value="gq">
+									Equatorial Guinea
+								</option>
+								<option value="er">
+									Eritrea
+								</option>
+								<option value="ee">
+									Estonia
+								</option>
+								<option value="et">
+									Ethiopia
+								</option>
+								<option value="fk">
+									Falkland Islands
+								</option>
+								<option value="fo">
+									Faroe Islands
+								</option>
+								<option value="fm">
+									Federated States of Micronesia
+								</option>
+								<option value="fj">
+									Fiji
+								</option>
+								<option value="fi">
+									Finland
+								</option>
+								<option value="fr">
+									France
+								</option>
+								<option value="gf">
+									French Guyana
+								</option>
+								<option value="pf">
+									French Polynesia
+								</option>
+								<option value="tf">
+									French Southern Territories
+								</option>
+								<option value="ga">
+									Gabon
+								</option>
+								<option value="gm">
+									Gambia
+								</option>
+								<option value="ge">
+									Georgia
+								</option>
+								<option value="de">
+									Germany
+								</option>
+								<option value="gh">
+									Ghana
+								</option>
+								<option value="gi">
+									Gibraltar
+								</option>
+								<option value="gr">
+									Greece
+								</option>
+								<option value="gl">
+									Greenland
+								</option>
+								<option value="gd">
+									Grenada
+								</option>
+								<option value="gp">
+									Guadeloupe
+								</option>
+								<option value="gu">
+									Guam
+								</option>
+								<option value="gt">
+									Guatemala
+								</option>
+								<option value="gn">
+									Guinea
+								</option>
+								<option value="gw">
+									Guinea-Bissau
+								</option>
+								<option value="gy">
+									Guyana
+								</option>
+								<option value="ht">
+									Haiti
+								</option>
+								<option value="hm">
+									Heard Island and McDonald Islands
+								</option>
+								<option value="hn">
+									Honduras
+								</option>
+								<option value="hk" SELECTED>
+									Hong Kong
+								</option>
+								<option value="hu">
+									Hungary
+								</option>
+								<option value="is">
+									Iceland
+								</option>
+								<option value="in">
+									India
+								</option>
+								<option value="id">
+									Indonesia
+								</option>
+								<option value="ir">
+									Iran
+								</option>
+								<option value="iq">
+									Iraq
+								</option>
+								<option value="xe">
+									Iraq-Saudi Arabia Neutral Zone
+								</option>
+								<option value="ie">
+									Ireland
+								</option>
+								<option value="il">
+									Israel
+								</option>
+								<option value="it">
+									Italy
+								</option>
+								<option value="ci">
+									Ivory Coast
+								</option>
+								<option value="jm">
+									Jamaica
+								</option>
+								<option value="jp">
+									Japan
+								</option>
+								<option value="jo">
+									Jordan
+								</option>
+								<option value="kz">
+									Kazakhstan
+								</option>
+								<option value="ke">
+									Kenya
+								</option>
+								<option value="ki">
+									Kiribati
+								</option>
+								<option value="kw">
+									Kuwait
+								</option>
+								<option value="kg">
+									Kyrgyz Republic
+								</option>
+								<option value="la">
+									Laos
+								</option>
+								<option value="lv">
+									Latvia
+								</option>
+								<option value="lb">
+									Lebanon
+								</option>
+								<option value="ls">
+									Lesotho
+								</option>
+								<option value="lr">
+									Liberia
+								</option>
+								<option value="ly">
+									Libya
+								</option>
+								<option value="li">
+									Liechtenstein
+								</option>
+								<option value="lt">
+									Lithuania
+								</option>
+								<option value="lu">
+									Luxembourg
+								</option>
+								<option value="mo">
+									Macau
+								</option>
+								<option value="mk">
+									Macedonia
+								</option>
+								<option value="mg">
+									Madagascar
+								</option>
+								<option value="mw">
+									Malawi
+								</option>
+								<option value="my">
+									Malaysia
+								</option>
+								<option value="mv">
+									Maldives
+								</option>
+								<option value="ml">
+									Mali
+								</option>
+								<option value="mt">
+									Malta
+								</option>
+								<option value="mh">
+									Marshall Islands
+								</option>
+								<option value="mq">
+									Martinique
+								</option>
+								<option value="mr">
+									Mauritania
+								</option>
+								<option value="mu">
+									Mauritius
+								</option>
+								<option value="yt">
+									Mayotte
+								</option>
+								<option value="mx">
+									Mexico
+								</option>
+								<option value="md">
+									Moldova
+								</option>
+								<option value="mc">
+									Monaco
+								</option>
+								<option value="mn">
+									Mongolia
+								</option>
+								<option value="ms">
+									Montserrat
+								</option>
+								<option value="ma">
+									Morocco
+								</option>
+								<option value="mz">
+									Mozambique
+								</option>
+								<option value="mm">
+									Myanmar
+								</option>
+								<option value="na">
+									Namibia
+								</option>
+								<option value="nr">
+									Nauru
+								</option>
+								<option value="np">
+									Nepal
+								</option>
+								<option value="nl">
+									Netherlands
+								</option>
+								<option value="an">
+									Netherlands Antilles
+								</option>
+								<option value="nc">
+									New Caledonia
+								</option>
+								<option value="nz">
+									New Zealand
+								</option>
+								<option value="ni">
+									Nicaragua
+								</option>
+								<option value="ne">
+									Niger
+								</option>
+								<option value="ng">
+									Nigeria
+								</option>
+								<option value="nu">
+									Niue
+								</option>
+								<option value="nf">
+									Norfolk Island
+								</option>
+								<option value="kp">
+									North Korea
+								</option>
+								<option value="mp">
+									Northern Mariana Islands
+								</option>
+								<option value="no">
+									Norway
+								</option>
+								<option value="om">
+									Oman
+								</option>
+								<option value="pk">
+									Pakistan
+								</option>
+								<option value="pw">
+									Palau
+								</option>
+								<option value="ps">
+									Palestinian Territories
+								</option>
+								<option value="pa">
+									Panama
+								</option>
+								<option value="pg">
+									Papua New Guinea
+								</option>
+								<option value="py">
+									Paraguay
+								</option>
+								<option value="pe">
+									Peru
+								</option>
+								<option value="ph">
+									Philippines
+								</option>
+								<option value="pn">
+									Pitcairn Islands
+								</option>
+								<option value="pl">
+									Poland
+								</option>
+								<option value="pt">
+									Portugal
+								</option>
+								<option value="pr">
+									Puerto Rico
+								</option>
+								<option value="qa">
+									Qatar
+								</option>
+								<option value="re">
+									Reunion
+								</option>
+								<option value="ro">
+									Romania
+								</option>
+								<option value="ru">
+									Russia
+								</option>
+								<option value="rw">
+									Rwanda
+								</option>
+								<option value="sh">
+									Saint Helena and Dependencies
+								</option>
+								<option value="kn">
+									Saint Kitts & Nevis
+								</option>
+								<option value="lc">
+									Saint Lucia
+								</option>
+								<option value="pm">
+									Saint Pierre and Miquelon
+								</option>
+								<option value="vc">
+									Saint Vincent and the Grenadines
+								</option>
+								<option value="ws">
+									Samoa
+								</option>
+								<option value="sm">
+									San Marino
+								</option>
+								<option value="st">
+									Sao Tome and Principe
+								</option>
+								<option value="sa">
+									Saudi Arabia
+								</option>
+								<option value="sn">
+									Senegal
+								</option>
+								<option value="sc">
+									Seychelles
+								</option>
+								<option value="sl">
+									Sierra Leone
+								</option>
+								<option value="sg">
+									Singapore
+								</option>
+								<option value="sk">
+									Slovakia
+								</option>
+								<option value="si">
+									Slovenia
+								</option>
+								<option value="sb">
+									Solomon Islands
+								</option>
+								<option value="so">
+									Somalia
+								</option>
+								<option value="za">
+									South Africa
+								</option>
+								<option value="gs">
+									South Georgia and the South Sandwich Islands
+								</option>
+								<option value="kr">
+									South Korea
+								</option>
+								<option value="es">
+									Spain
+								</option>
+								<option value="pi">
+									Spratly Islands
+								</option>
+								<option value="lk">
+									Sri Lanka
+								</option>
+								<option value="sd">
+									Sudan
+								</option>
+								<option value="sr">
+									Suriname
+								</option>
+								<option value="sj">
+									Svalbard and Jan Mayen Islands
+								</option>
+								<option value="sz">
+									Swaziland
+								</option>
+								<option value="se">
+									Sweden
+								</option>
+								<option value="ch">
+									Switzerland
+								</option>
+								<option value="sy">
+									Syria
+								</option>
+								<option value="tw">
+									Taiwan
+								</option>
+								<option value="tj">
+									Tajikistan
+								</option>
+								<option value="tz">
+									Tanzania
+								</option>
+								<option value="th">
+									Thailand
+								</option>
+								<option value="tg">
+									Togo
+								</option>
+								<option value="tk">
+									Tokelau
+								</option>
+								<option value="to">
+									Tonga
+								</option>
+								<option value="tt">
+									Trinidad and Tobago
+								</option>
+								<option value="tn">
+									Tunisia
+								</option>
+								<option value="tr">
+									Turkey
+								</option>
+								<option value="tm">
+									Turkmenistan
+								</option>
+								<option value="tc">
+									Turks and Caicos Islands
+								</option>
+								<option value="tv">
+									Tuvalu
+								</option>
+								<option value="ug">
+									Uganda
+								</option>
+								<option value="ua">
+									Ukraine
+								</option>
+								<option value="ae">
+									United Arab Emirates
+								</option>
+
+							</select>
+						</div>
+
+						<div class="grid-12-12">
+							<label>
+								Native Language
+								<em class="formee-req">*</em>
+							</label>
+							<select class="formee-medium">
+								
+								
+								<option value="1">
+									English
+								<option value="11">
+									Chinese, Cantonese
+								<option value="12">
+									Chinese, Mandarin
+								<option value="13">
+									Chinese, other
+								
+								<option value="77">
+									Afrikaans
+								<option value="106">
+									Akan
+								<option value="60">
+									Albanian
+								<option value="94">
+									Amharic (Ethiopian)
+								<option value="18">
+									Arabic, Egyptian
+								<option value="3">
+									Arabic, Middle Eastern
+								<option value="2">
+									Arabic, Moroccan
+								<option value="4">
+									Arabic, other
+								<option value="82">
+									Aramaic
+								<option value="64">
+									Armenian
+								<option value="112">
+									Assamese
+								<option value="78">
+									Assyrian
+								<option value="72">
+									Azerbaijani
+								<option value="145">
+									Baoulé (Baule, Bawule)
+								<option value="7">
+									Basque
+								<option value="144">
+									Bavarian (Austro-Bavarian)
+								<option value="100">
+									Belarusian
+								<option value="153">
+									Bemba (Chiwemba, Wemba)
+								<option value="8">
+									Bengali
+								<option value="9">
+									Berber
+								<option value="59">
+									Bosnian
+								<option value="116">
+									Breton
+								<option value="10">
+									Bulgarian
+								<option value="96">
+									Burmese
+								<option value="65">
+									Cambodian (Khmer)
+								<option value="55">
+									Catalan
+								<option value="136">
+									Cebuano (Bisaya)
+								<option value="95">
+									Chichewa (Nyanja)
+								<option value="11">
+									Chinese, Cantonese
+								<option value="12">
+									Chinese, Mandarin
+								<option value="13">
+									Chinese, other
+								<option value="147">
+									Chuvash (Bulgar)
+								<option value="14">
+									Creole
+								<option value="83">
+									Croatian
+								<option value="15">
+									Czech
+								<option value="16">
+									Danish
+								<option value="17">
+									Dutch
+								<option value="1">
+									English
+								<option value="19">
+									Esperanto
+								<option value="63">
+									Estonian
+								<option value="146">
+									Faroese
+								<option value="88">
+									Fijian
+								<option value="20">
+									Filipino (Tagalog)
+								<option value="21">
+									Finnish
+								<option value="155">
+									Fon (Dahomeen, Djedji, Fongbe)
+								<option value="22">
+									French
+								<option value="68">
+									Gaelic (Irish)
+								<option value="69">
+									Gaelic (Scottish)
+								<option value="79">
+									Galician
+								<option value="71">
+									Georgian
+								<option value="23">
+									German
+								<option value="24">
+									Greek
+								<option value="74">
+									Gujarati
+								<option value="138">
+									Hausa
+								<option value="73">
+									Hawaiian
+								<option value="25">
+									Hebrew
+								<option value="26">
+									Hindi
+								<option value="117">
+									Hmong
+								<option value="27">
+									Hungarian
+								<option value="56">
+									Icelandic
+								<option value="109">
+									Ido
+								<option value="157">
+									Igbo (Ibo)
+								<option value="5">
+									Indonesian (Bahasa)
+								<option value="108">
+									Interlingua
+								<option value="29">
+									Italian
+								<option value="30">
+									Japanese
+								<option value="159">
+									Kachchi
+								<option value="67">
+									Kannada
+								<option value="91">
+									Kazakh
+								<option value="141">
+									Kituba (Kikoongo, Munukutuba)
+								<option value="123">
+									Konkani
+								<option value="143">
+									Konkani (Kunabi, Cugani, Bankoti)
+								<option value="31">
+									Korean
+								<option value="53">
+									Kurdish
+								<option value="135">
+									Kyrgyz (Kara-Kirgiz, Kirghiz, Kirgiz)
+								<option value="133">
+									Ladino
+								<option value="84">
+									Lao
+								<option value="57">
+									Latin
+								<option value="62">
+									Latvian
+								<option value="114">
+									Ligurian
+								<option value="142">
+									Lingala (Ngala)
+								<option value="61">
+									Lithuanian
+								<option value="66">
+									Lombard
+								<option value="148">
+									Luxembourgeois (Luxemburgian)
+								<option value="87">
+									Macedonian
+								<option value="115">
+									Malagasy
+								<option value="6">
+									Malay (Bahasa Malaysia)
+								<option value="93">
+									Malayalam
+								<option value="119">
+									Maldivian (Dhivehi)
+								<option value="101">
+									Maltese
+								<option value="122">
+									Maori (New Zealand Maori)
+								<option value="85">
+									Marathi
+								<option value="105">
+									Mongolian
+								<option value="158">
+									Montenegrin
+								<option value="104">
+									Native American (Ojibway, Cree...)
+								<option value="81">
+									Nepali
+								<option value="102">
+									Newari
+								<option value="32">
+									Norwegian
+								<option value="151">
+									Nyanja (Chewa, Chinyanja)
+								<option value="154">
+									Occitan (Occitani)
+								<option value="90">
+									Oriya
+								<option value="152">
+									Oromo (Oromoo , Oromiffa)
+								<option value="124">
+									Paraguayan Guarani
+								<option value="33">
+									Persian (Farsi, Dari)
+								<option value="34">
+									Polish
+								<option value="35">
+									Portuguese
+								<option value="128">
+									Pulaar
+								<option value="36">
+									Punjabi
+								<option value="58">
+									Pushto (Pashto)
+								<option value="80">
+									Quechua
+								<option value="37">
+									Romanian
+								<option value="89">
+									Romansch
+								<option value="150">
+									Romany (Gypsy, Danubian)
+								<option value="140">
+									Rundi (Kirundi, Urundi)
+								<option value="38">
+									Russian
+								<option value="139">
+									Rwanda (Kinyarwanda)
+								<option value="121">
+									Saami (sami)
+								<option value="132">
+									Samoan
+								<option value="111">
+									Sanskrit
+								<option value="39">
+									Serbian (Serbo-Croatian)
+								<option value="98">
+									Shona
+								<option value="131">
+									Sicilian
+								<option value="40">
+									Sign Language
+								<option value="76">
+									Sindhi
+								<option value="86">
+									Sinhalese
+								<option value="41">
+									Slovak
+								<option value="54">
+									Slovenian
+								<option value="99">
+									Somali
+								<option value="42">
+									Spanish
+								<option value="43">
+									Swahili
+								<option value="44">
+									Swedish
+								<option value="149">
+									Tajiki (Tajiki, Tadzhik)
+								<option value="45">
+									Tamil
+								<option value="126">
+									Tatar (Tartar)
+								<option value="75">
+									Telugu
+								<option value="103">
+									Tetum
+								<option value="46">
+									Thai
+								<option value="47">
+									Tibetan
+								<option value="137">
+									Tigrigna (Tigray, Tigrinya)
+								<option value="107">
+									Tongan
+								<option value="92">
+									Tswana
+								<option value="134">
+									Tumbuka
+								<option value="48">
+									Turkish
+								<option value="49">
+									Ukrainian
+								<option value="50">
+									Urdu
+								<option value="127">
+									Uyghur (Wighor)
+								<option value="97">
+									Uzbek
+								<option value="113">
+									Venetian
+								<option value="51">
+									Vietnamese
+								<option value="70">
+									Welsh
+								<option value="129">
+									Wolof
+								<option value="118">
+									Xhosa
+								<option value="52">
+									Yiddish
+								<option value="130">
+									Yoruba
+								<option value="125">
+									Zulu
+									
+								<option value="120">
+									- Other -
+							</select>
+						</div>
+
+						<div class="grid-12-12"><br/>
+							<label>
+								Area of Interest
+								<em class="formee-req">*</em>
+							</label>
+							
+<fieldset>
+	<legend><span class="legend_css">Activities</span></legend>
+        <ul class='formee-list'>
+        <li><input type="checkbox" name="activities_act" id="activities_act" value="1" class="Checkbox"> Activism</li>
+        <li><input type="checkbox" name="activities_ant" id="activities_ant" value="1" class="Checkbox"> Antiques / Collectibles</li>
+        <li><input type="checkbox" name="activities_ast" id="activities_ast" value="1" class="Checkbox"> Astrology</li>
+        <li><input type="checkbox" name="activities_boo" id="activities_boo" value="1" class="Checkbox"> Books / Reading</li>
+        <li><input type="checkbox" name="activities_cam" id="activities_cam" value="1" class="Checkbox" checked="checked"> Camping / Outdoors</li>
+        <li><input type="checkbox" name="activities_car" id="activities_car" value="1" class="Checkbox" checked="checked"> Cars</li>
+        <li><input type="checkbox" name="activities_col" id="activities_col" value="1" class="Checkbox" checked="checked"> Collecting</li>
+        <li><input type="checkbox" name="activities_com" id="activities_com" value="1" class="Checkbox"> Computers</li>
+        <li><input type="checkbox" name="activities_dra" id="activities_dra" value="1" class="Checkbox"> Drag</li>
+        <li><input type="checkbox" name="activities_fas" id="activities_fas" value="1" class="Checkbox"> Fashion</li>
+        <li><input type="checkbox" name="activities_inv" id="activities_inv" value="1" class="Checkbox"> Investing</li>
+        <li><input type="checkbox" name="activities_lea" id="activities_lea" value="1" class="Checkbox"> Leather</li>
+        <li><input type="checkbox" name="activities_mot" id="activities_mot" value="1" class="Checkbox"> Motorcycles</li>
+        <li><input type="checkbox" name="activities_pho" id="activities_pho" value="1" class="Checkbox"> Photography</li>
+        <li><input type="checkbox" name="activities_pol" id="activities_pol" value="1" class="Checkbox"> Politics</li>
+        <li><input type="checkbox" name="activities_sho" id="activities_sho" value="1" class="Checkbox" checked="checked"> Shopping</li>
+        <li><input type="checkbox" name="activities_tra" id="activities_tra" value="1" class="Checkbox" checked="checked"> Travel</li>
+        </ul>
+</fieldset>
+<fieldset>
+	<legend><span class="legend_css">Entertainment</span></legend>
+        <ul class='formee-list'>
+        <li><input type="checkbox" name="entertainment_club" id="entertainment_club" value="1" class="Checkbox"> Clubbing / Parties</li>
+        <li><input type="checkbox" name="entertainment_comi" id="entertainment_comi" value="1" class="Checkbox"> Comics / Anime</li>
+        <li><input type="checkbox" name="entertainment_comp" id="entertainment_comp" value="1" class="Checkbox" checked="checked"> Computer</li>
+        <li><input type="checkbox" name="entertainment_danc" id="entertainment_danc" value="1" class="Checkbox"> Dancing</li>
+        <li><input type="checkbox" name="entertainment_gamb" id="entertainment_gamb" value="1" class="Checkbox"> Gambling</li>
+        <li><input type="checkbox" name="entertainment_live" id="entertainment_live" value="1" class="Checkbox" checked="checked"> Live music / Music</li>
+        <li><input type="checkbox" name="entertainment_movi" id="entertainment_movi" value="1" class="Checkbox" checked="checked"> Movies / Film</li>
+        <li><input type="checkbox" name="entertainment_symp" id="entertainment_symp" value="1" class="Checkbox"> Symphony / Opera</li>
+        <li><input type="checkbox" name="entertainment_thea" id="entertainment_thea" value="1" class="Checkbox" checked="checked"> Theater Arts</li>
+        <li><input type="checkbox" name="entertainment_tvvi" id="entertainment_tvvi" value="1" class="Checkbox" checked="checked"> TV / Videos / DVDs</li>
+        <li><input type="checkbox" name="entertainment_wine" id="entertainment_wine" value="1" class="Checkbox"> Wine Tasting</li>
+        </ul>
+        
+        </fieldset>
+        <fieldset>
+	<legend><span class="legend_css">Music</span></legend>
+        <ul class='formee-list'>
+        <li><input type="checkbox" name="music_alt" id="music_alt" value="1" class="Checkbox"> Alternative</li>
+        <li><input type="checkbox" name="music_cla" id="music_cla" value="1" class="Checkbox" checked="checked"> Classical</li>
+        <li><input type="checkbox" name="music_cou" id="music_cou" value="1" class="Checkbox"> Country</li>
+        <li><input type="checkbox" name="music_dan" id="music_dan" value="1" class="Checkbox"> Dance</li>
+        <li><input type="checkbox" name="music_gos" id="music_gos" value="1" class="Checkbox" checked="checked"> Gospel</li>
+        <li><input type="checkbox" name="music_jaz" id="music_jaz" value="1" class="Checkbox"> Jazz</li>
+        <li><input type="checkbox" name="music_met" id="music_met" value="1" class="Checkbox"> Metal</li>
+        <li><input type="checkbox" name="music_new" id="music_new" value="1" class="Checkbox"> New Age</li>
+        <li><input type="checkbox" name="music_ope" id="music_ope" value="1" class="Checkbox" checked="checked"> Opera</li>
+        <li><input type="checkbox" name="music_pop" id="music_pop" value="1" class="Checkbox" checked="checked"> Pop</li>
+        <li><input type="checkbox" name="music_roc" id="music_roc" value="1" class="Checkbox" checked="checked"> Rock</li>
+        <li><input type="checkbox" name="music_rnb" id="music_rnb" value="1" class="Checkbox" checked="checked"> R&B</li>
+        <li><input type="checkbox" name="music_voc" id="music_voc" value="1" class="Checkbox"> Vocal</li>
+        <li><input type="checkbox" name="music_wor" id="music_wor" value="1" class="Checkbox"> World</li>
+        </ul></fieldset>
+        
+<fieldset>
+	<legend><span class="legend_css">Health,&nbsp;&nbsp;Sports&nbsp;&nbsp;and&nbsp;&nbsp;Fitness</span></legend>
+        <ul class='formee-list'>
+        <li><input type="checkbox" name="health_aero" id="health_aero" value="1" class="Checkbox"> Aerobics / Exercise</li>
+        <li><input type="checkbox" name="health_amer" id="health_amer" value="1" class="Checkbox"> American Football</li>
+        <li><input type="checkbox" name="health_base" id="health_base" value="1" class="Checkbox"> Baseball / Softball</li>
+        <li><input type="checkbox" name="health_bask" id="health_bask" value="1" class="Checkbox"> Basketball</li>
+        <li><input type="checkbox" name="health_beac" id="health_beac" value="1" class="Checkbox"> Beach volleyball</li>
+        <li><input type="checkbox" name="health_biki" id="health_biki" value="1" class="Checkbox" checked="checked"> Biking</li>
+        <li><input type="checkbox" name="health_bill" id="health_bill" value="1" class="Checkbox"> Billiards / Pool</li>
+        <li><input type="checkbox" name="health_body" id="health_body" value="1" class="Checkbox"> Bodybuilding</li>
+        <li><input type="checkbox" name="health_extr" id="health_extr" value="1" class="Checkbox"> Extreme sports</li>
+        <li><input type="checkbox" name="health_figu" id="health_figu" value="1" class="Checkbox"> Figure skating</li>
+        <li><input type="checkbox" name="health_golf" id="health_golf" value="1" class="Checkbox"> Golf</li>
+        <li><input type="checkbox" name="health_hiki" id="health_hiki" value="1" class="Checkbox" checked="checked"> Hiking</li>
+        <li><input type="checkbox" name="health_hock" id="health_hock" value="1" class="Checkbox"> Hockey</li>
+        <li><input type="checkbox" name="health_holi" id="health_holi" value="1" class="Checkbox"> Holistic Health</li>
+        <li><input type="checkbox" name="health_inli" id="health_inli" value="1" class="Checkbox"> Inline skating</li>
+        <li><input type="checkbox" name="health_mart" id="health_mart" value="1" class="Checkbox"> Martial Arts</li>
+        <li><input type="checkbox" name="health_medi" id="health_medi" value="1" class="Checkbox" checked="checked"> Meditation</li>
+        <li><input type="checkbox" name="health_nutr" id="health_nutr" value="1" class="Checkbox"> Nutrition</li>
+        <li><input type="checkbox" name="health_rugb" id="health_rugb" value="1" class="Checkbox"> Rugby</li>
+        <li><input type="checkbox" name="health_runn" id="health_runn" value="1" class="Checkbox"> Running</li>
+        <li><input type="checkbox" name="health_sail" id="health_sail" value="1" class="Checkbox"> Sailing / Boating</li>
+        <li><input type="checkbox" name="health_scub" id="health_scub" value="1" class="Checkbox"> Scuba diving</li>
+        <li><input type="checkbox" name="health_skat" id="health_skat" value="1" class="Checkbox"> Skateboarding</li>
+        <li><input type="checkbox" name="health_skii" id="health_skii" value="1" class="Checkbox"> Skiing</li>
+        <li><input type="checkbox" name="health_snow" id="health_snow" value="1" class="Checkbox"> Snowboarding</li>
+        <li><input type="checkbox" name="health_socc" id="health_socc" value="1" class="Checkbox"> Soccer / Football</li>
+        <li><input type="checkbox" name="health_surf" id="health_surf" value="1" class="Checkbox"> Surfing</li>
+        <li><input type="checkbox" name="health_swim" id="health_swim" value="1" class="Checkbox"> Swimming</li>
+        <li><input type="checkbox" name="health_tenn" id="health_tenn" value="1" class="Checkbox"> Tennis / Racquet sports</li>
+        <li><input type="checkbox" name="health_tria" id="health_tria" value="1" class="Checkbox"> Triathlon</li>
+        <li><input type="checkbox" name="health_voll" id="health_voll" value="1" class="Checkbox"> Volleyball</li>
+        <li><input type="checkbox" name="health_walk" id="health_walk" value="1" class="Checkbox" checked="checked"> Walking</li>
+        <li><input type="checkbox" name="health_weig" id="health_weig" value="1" class="Checkbox"> Weight Training</li>
+        <li><input type="checkbox" name="health_wres" id="health_wres" value="1" class="Checkbox"> Wrestling</li>
+        <li><input type="checkbox" name="health_yoga" id="health_yoga" value="1" class="Checkbox"> Yoga</li>
+        </ul></fieldset>
+        
+<fieldset>
+	<legend><span class="legend_css">Home&nbsp;/&nbsp;Family</span></legend>
+        <ul class='formee-list'>
+        <li><input type="checkbox" name="home_coo" id="home_coo" value="1" class="Checkbox" checked="checked"> Cooking</li>
+        <li><input type="checkbox" name="home_cra" id="home_cra" value="1" class="Checkbox"> Crafts</li>
+        <li><input type="checkbox" name="home_dec" id="home_dec" value="1" class="Checkbox"> Decorating</li>
+        <li><input type="checkbox" name="home_ent" id="home_ent" value="1" class="Checkbox"> Entertaining</li>
+        <li><input type="checkbox" name="home_gar" id="home_gar" value="1" class="Checkbox"> Gardening</li>
+        <li><input type="checkbox" name="home_hom" id="home_hom" value="1" class="Checkbox"> Home Improvement</li>
+        <li><input type="checkbox" name="home_mar" id="home_mar" value="1" class="Checkbox"> Marriage</li>
+        <li><input type="checkbox" name="home_par" id="home_par" value="1" class="Checkbox"> Parenting</li>
+        <li><input type="checkbox" name="home_pet" id="home_pet" value="1" class="Checkbox" checked="checked"> Pets</li>
+        <li><input type="checkbox" name="home_ret" id="home_ret" value="1" class="Checkbox"> Retirement</li>
+        </ul>
+       </fieldset>
+							
+							</div>
+
+							
+							
+						
+
+
+
+						<div class="grid-12-12">
+							<input class="right" type="button" title="Login"
+								value="Send the form to us" onclick="login();" />
+						</div>
+
+
+
+					</div>
+				</fieldset>
+			</div>
+
+		</form>
+
+	</body>
+</html>

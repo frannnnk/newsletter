@@ -1,7 +1,25 @@
 
+
+a:link,a:visited,a:active {
+	color: #666;
+	border:none;
+}
+a:hover{
+	color: #333;
+	border:none;
+}
+
+
+
 /*Center a Object in the middle of the screen*/
 .position_centered_fixed {
   position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.position_centered_absolute {
+  position: absolute;
   top: 50%;
   left: 50%;
 }

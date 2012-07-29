@@ -27,8 +27,36 @@ function login(){
 	$('#encryptedPassword').val(hex_md5($('#encryptedPassword').val()));
 
 	$.post("login.action?action=login", $('#loginForm').serialize(),function(data){
-			alert(data);
+			//alert(data);
+			
+			var obj = jQuery.parseJSON(data);
+			
+			
+			if ("S" == obj.result) {
+				loginSucceed();
+			} else {
+				loginError();
+			}
+			
 	});
+
+}
+
+function loginSucceed(){
+	$('#encryptedPassword').val("");
+	window.open("member/main.jsp","_self");
+}
+
+
+function loginError(msg){
+
+	$('#encryptedPassword').val("");
+
+	$("#msg").addClass("formee-msg-error");	
+	$("#msg").html("Error La");
+	//$("#msg").fadeIn("slow");
+	$("#loginBox").effect("shake", { times:5 }, 50);
+	
 
 }
 
@@ -48,10 +76,12 @@ function login(){
 		<span style="font-size:30px;">Welcome to our <span style="font-size:30px;font-weight:bolder;">Friendly Tattler</span> project.</span>
 	</div>
 	
-	<div style="width:450px; margin-top: -135px; margin-left: -235px; padding-top:30px;padding-bottom:30px;" class="position_centered_fixed font_NeoSansRegular formee">	
+	<div id="msg" style="width:390px; margin-top: -185px; margin-left: -235px; display:none; font-size:20px;" class="position_centered_fixed font_NeoSansRegular formee "></div>
+	
+	<div  id="loginBox" style="width:450px; margin-top: -135px; margin-left: -235px; padding-top:30px;padding-bottom:30px;" class="position_centered_fixed font_NeoSansRegular formee">	
 	
 		<fieldset>
-    	<div class="login" style="margin:30px;">
+    	<div  class="login" style="margin:30px;">
             <div class="grid-12-12">
                     <label>Email <em class="formee-req">*</em></label>
                    <input type="text" value=""  name="userid"/>
@@ -61,9 +91,15 @@ function login(){
                    <input type="password" value=""  name="encryptedPassword" id="encryptedPassword"/>
             </div>
               
-            <div class="grid-7-12">
+            
+            <div class="grid-12-12">
                    <input class="right" type="button" title="Login" value="Login" onclick="login();"/>
             </div>
+            <div class="grid-12-12">
+                  <span class="right"><a href="register.jsp">Need an account?</a></span>
+            </div>
+            
+            
         </div>
     </fieldset>
 </div>

@@ -5,6 +5,7 @@ public class AjaxReturnMessageModel {
 	private String action;
 	private String result;
 	private String message;
+	
 	public String getAction() {
 		return action;
 	}
