@@ -1,0 +1,155 @@
+@CHARSET "UTF-8";
+
+#main {
+	position: absolute;
+	left: 0px;
+	top: 140px;
+	width: 1000px;
+	height: 360px;
+	left: 50%;
+	margin-left: -500px;
+	z-index: 1;
+	background-color: #fff;
+}
+
+#bg_canvas {
+	position: absolute;
+	left: 0px;
+	top: 10px;
+	width: 1020px;
+	height: 650px;
+	left: 50%;
+	margin-left: -510px;
+	z-index: -1;
+	background-color: #fff;
+	-moz-box-shadow: 0 0 30px 3px #ccc;
+	-webkit-box-shadow: 0 0 15px 3px #ccc;
+	box-shadow: 0 0 15px 3px #ccc;
+}
+
+#bg_canvas_new {
+	position: absolute;
+	left: 0px;
+	top: 130px;
+	width: 1020px;
+	height: 502px;
+	left: 50%;
+	margin-left: -510px;
+	z-index: -1;
+	background-color: #fff;
+	
+}
+
+#loginPanel {
+	background-image: url(../../picture/hk.franks.newsletter.common/loginbg.gif);
+	position: absolute;
+	left: 0px;
+	top: 20px;
+	width: 800px;
+	height: 360px;
+	left: 50%;
+	margin-left: -400px;
+	border: 1px solid white;
+}
+
+#loginTitle {
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	background-image: url(../../picture/hk.franks.newsletter.common/icons.png);
+	background-position: -659px -823px;
+	background-repeat: no-repeat;
+	width: 190px;
+	height: 30px;
+	overflow: hidden;
+}
+
+#regTitle {
+	position: absolute;
+	left: 410px;
+	top: 20px;
+	background-image: url(../../picture/hk.franks.newsletter.common/icons.png);
+	background-position: -856px -823px;
+	background-repeat: no-repeat;
+	width: 250px;
+	height: 30px;
+	overflow: hidden;
+}
+
+#VtSep {
+	position: absolute;
+	left: 380px;
+	top: 20px;
+	height: 320px;
+	width: 2px;
+	background-color: #CCC;
+	border: none;
+}
+
+#loginInputField {
+	position: absolute;
+	left: 20px;
+	top: 70px;
+	font-family: "微软雅黑", "黑体", "Lucida Sans Unicode", "Lucida Grande",
+		sans-serif;
+	font-size: 15px;
+	font-size: 15px;
+	width: 380px;
+	height: 300px;
+	overflow: hidden;
+}
+
+#regInputField {
+	position: absolute;
+	left: 410px;
+	top: 70px;
+	font-family: "微软雅黑", "黑体", "Lucida Sans Unicode", "Lucida Grande",
+		sans-serif;
+	font-size: 15px;
+	font-size: 15px;
+	width: 380px;
+	height: 300px;
+	overflow: hidden;
+}
+
+#btnLogin {
+	position: absolute;
+	left: 100px;
+	top: 200px;
+	background-image: url(../../picture/hk.franks.newsletter.common/icons.png);
+	background-position: -232px -652px;
+	background-repeat: no-repeat;
+	width: 111px;
+	height: 39px;
+	overflow: hidden;
+}
+
+#btnReg {
+	position: absolute;
+	left: 130px;
+	top: 200px;
+	background-image: url(../../picture/hk.franks.newsletter.common/icons.png);
+	background-position: -349px -652px;
+	background-repeat: no-repeat;
+	width: 111px;
+	height: 39px;
+	overflow: hidden;
+}
+
+.inputCmt {
+	border: 1px solid #ccc;
+	width: 250px;
+	height: 30px;
+	color: #999;
+	padding-left: 4px;
+	font-size: 17px;
+	font-family: "微软雅黑", Arial;
+}
+
+.inputverifycode {
+	border: 1px solid #ccc;
+	width: 150px;
+	height: 30px;
+	font-size: 18px;
+	color: #999;
+}

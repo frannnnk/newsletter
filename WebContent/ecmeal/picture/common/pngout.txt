@@ -1,0 +1,5 @@
+Compress PNG. Mac Only
+
+
+
+/Users/frank/Workspace/ecmeal/WebContent/picture/hk.franks.newsletter.common/pngout /Users/frank/Workspace/ecmeal/WebContent/picture/hk.franks.newsletter.common/icons.png /Users/frank/Workspace/ecmeal/WebContent/picture/hk.franks.newsletter.common/icons-small.png

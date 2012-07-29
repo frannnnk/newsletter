@@ -1,0 +1,38 @@
+
+/*Center a Object in the middle of the screen*/
+.position_centered_fixed {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.font_NeoSansRegular{
+	font-family:NeoSansRegular;
+	}
+
+.border_shadow{
+	border-shadow:5px;
+	border-shadow-fade:50%;
+	}
+
+
+
+/* Font Embedding */
+@font-face{
+	font-family: 'NeoSansRegular';
+	src: url('neosans-webfont.eot');
+	src: local('?'), url('neosans-webfont.woff') format('woff'), url('neosans-webfont.ttf') format('truetype'), url('neosans-webfont.svg#webfontZEnS3thV') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face{font-family:LeagueGothic;src:url("LeagueGothic.eot");src:url('League_Gothic.otf') format('opentype')}
+
+.test{
+	color:red;
+｝
+
+
+
+
+

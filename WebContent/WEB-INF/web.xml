@@ -15,19 +15,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 	
-	<context-param>
-        <param-name>enableIconImageRedirect</param-name>
-        <param-value>false</param-value>
-    </context-param>
-	<context-param>
-        <param-name>iconsImageLocation</param-name>
-        <param-value>http://dl.dropbox.com/u/247582/canteen/icons.png</param-value>
-    </context-param>
-    
+	
     
 	<filter>
 		<filter-name>encodingfilter</filter-name>
-		<filter-class>controller.filter.EncodingFilter</filter-class>
+		<filter-class>hk.franks.newsletter.controller.filter.EncodingFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingfilter</filter-name>
@@ -35,135 +27,7 @@
 	</filter-mapping>
 
 
-	<filter>
-		<filter-name>AdmAuthorityFilter</filter-name>
-		<filter-class>controller.filter.AdmAuthorityFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>AdmAuthorityFilter</filter-name>
-		<url-pattern>/restaurantmanagementaction.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AdmAuthorityFilter</filter-name>
-		<url-pattern>/restaurantmanagementInitaction.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AdmAuthorityFilter</filter-name>
-		<url-pattern>/foodmanagementaction.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AdmAuthorityFilter</filter-name>
-		<url-pattern>/maplocationmanagementaction.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AdmAuthorityFilter</filter-name>
-		<url-pattern>/ordermanagement.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AdmAuthorityFilter</filter-name>
-		<url-pattern>/restaurantupdate.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AdmAuthorityFilter</filter-name>
-		<url-pattern>/backmanagement/addmap_location.jsp</url-pattern>
-	</filter-mapping>
-
-
-
-	<filter>
-		<filter-name>AuthorityFilter</filter-name>
-		<filter-class>controller.filter.AuthorityConfirmFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>AuthorityFilter</filter-name>
-		<url-pattern>/myaddressinit.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AuthorityFilter</filter-name>
-		<url-pattern>/myordersearch.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AuthorityFilter</filter-name>
-		<url-pattern>/myfavaction.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AuthorityFilter</filter-name>
-		<url-pattern>/mycommentaction.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AuthorityFilter</filter-name>
-		<url-pattern>/orderfillout.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AuthorityFilter</filter-name>
-		<url-pattern>/ordersubmit.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AuthorityFilter</filter-name>
-		<url-pattern>/myinvitation.action</url-pattern>
-	</filter-mapping>
-	<filter>
-		<filter-name>locationconfrim</filter-name>
-		<filter-class>controller.filter.LocationConfirmFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>locationconfrim</filter-name>
-		<url-pattern>/orderfillout.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>locationconfrim</filter-name>
-		<url-pattern>/ordersubmit.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>locationconfrim</filter-name>
-		<url-pattern>/foodresinit.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>locationconfrim</filter-name>
-		<url-pattern>/restaurantmenuinitaction.action</url-pattern>
-	</filter-mapping>
-
-	<!-- <filter>
-		<filter-name>DomainNameFilter</filter-name>
-		<filter-class>controller.filter.DomainNameFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>DomainNameFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>DomainNameFilter</filter-name>
-		<url-pattern>*.action</url-pattern>
-	</filter-mapping> -->
 	
-	
-	<filter>
-		<filter-name>IconImageFilter</filter-name>
-		<filter-class>controller.filter.IconImageFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>IconImageFilter</filter-name>
-		<url-pattern>/picture/common/icons.png</url-pattern>
-	</filter-mapping>
-	
-	
-
-	<filter>
-		<filter-name>autologin</filter-name>
-		<filter-class>controller.filter.AutoLoginFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>autologin</filter-name>
-		<url-pattern>/index.jsp</url-pattern>
-	</filter-mapping>
-	<filter>
-		<filter-name>indexinit</filter-name>
-		<filter-class>controller.filter.IndexInitFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>indexinit</filter-name>
-		<url-pattern>/index.jsp</url-pattern>
-	</filter-mapping>
 	<filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
@@ -176,10 +40,12 @@
 		<filter-name>struts2</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
+	
 	<javaee:resource-ref>
 		<javaee:description>DB Connection</javaee:description>
-		<javaee:res-ref-name>jdbc/ecmeal</javaee:res-ref-name>
+		<javaee:res-ref-name>jdbc/newsletter</javaee:res-ref-name>
 		<javaee:res-type>javax.sql.DataSource</javaee:res-type>
 		<javaee:res-auth>Container</javaee:res-auth>
 	</javaee:resource-ref>
+	
 </web-app>

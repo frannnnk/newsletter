@@ -1,0 +1,184 @@
+@CHARSET "UTF-8";
+
+#bg_canvas{
+	position:absolute;
+	left:0px;
+	top:130px;
+	width:1020px;
+	height:720px;
+	left: 50%;
+	margin-left: -510px;
+	z-index:1;
+	background-color:#fff;
+	
+	}
+
+
+
+.myButton {
+	-moz-box-shadow: inset 0px 0px 0px -1px #ffffff;
+	-webkit-box-shadow: inset 0px 0px 0px -1px #ffffff;
+	box-shadow: inset 0px 0px 0px -1px #ffffff;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed
+		), color-stop(1, #cac0f0) );
+	background: -moz-linear-gradient(center top, #ededed 5%, #cac0f0 100%);
+	filter: progid :   DXImageTransform.Microsoft.gradient (   startColorstr
+		= 
+		 '#ededed', endColorstr =   '#cac0f0' );
+	background-color: #ededed;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+	border: 1px solid #e69ce6;
+	display: inline-block;
+	color: #573d57;
+	font-family: arial;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 7px 18px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #ffffff;
+}
+
+.mySearchButton{
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 13px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+}.mySearchButton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}.mySearchButton:active {
+	position:relative;
+	top:1px;
+}
+
+.mapCss{
+	position:absolute;
+	left:20px;
+	top:20px;
+	height: 500px;
+	width: 880px;	
+	border: 1px solid #ccc;
+	z-index:9999;
+	padding:5px;
+}
+.map_canvas_border{
+	position:absolute;
+	left:40px;
+	top:120px;
+	height: 540px;
+	width: 920px;	
+	border: 1px solid #ccc;
+	z-index:999;
+	padding:5px;
+	border-radius: 15px;
+}
+
+
+.maptopnav {
+	
+	position:absolute;
+	left:40px;
+	top:20px;
+	width: 920px;
+	margin-top: 0px;	
+	font-size: 16px;
+		font-family: "微软雅黑", "黑体", "Lucida Sans Unicode", "Lucida Grande",
+		sans-serif;
+		z-index:9999999;
+}
+
+.maptopnav a {
+	text-decoration: none;
+	color: #000000;
+	
+}
+
+
+#banner_container {
+	position:absolute;
+	left:0px;
+	top:25px;
+	width:100%;
+	height:108px;
+	background-color: 	#ff821a;
+	z-index:10;
+}
+
+
+.searchInput {	
+	/* version 1
+	margin-left:17px;
+	z-index:3;
+	border:0px;
+	width:212px; 
+	height:39px; 
+	background-image:url(../../picture/hk.franks.newsletter.common/input_box_bg_232x39_t.png);
+	background-repeat:no-repeat;	
+	padding-left:10px;
+	padding-right:10px;
+	outline: none;
+	font-family: "微软雅黑","黑体","Lucida Sans Unicode", "Lucida Grande", sans-serif;	font-size:15px;
+	color:#666;
+	float:left;
+	*/
+	position:absolute;
+	top:45px;
+	z-index:3;
+	border:1px solid #ccc;
+	width:322px; /* Originally 232px ,miners padding left 10px and right 10px */
+	height:40px; 
+	background-repeat:no-repeat;	
+	padding-left:10px;
+	padding-right:10px;
+	outline: none;
+	font-family: "微软雅黑","黑体","Lucida Sans Unicode", "Lucida Grande", sans-serif;	font-size:15px;
+	color:#666;
+	float:left;
+	
+}
+
+#searchInputBtn{
+	position:absolute;
+	top:45px;
+	left:343px;
+	height:42px; 
+	width:70px;
+	border:1px solid #ffb800;
+	font-family: "微软雅黑","黑体","Lucida Sans Unicode", "Lucida Grande", sans-serif;	font-size:15px;
+	font-size:15px;
+	background-color:#ffb800;
+	
+	}
+	
+.hotPlaces{
+	position:absolute;
+	top:55px;
+	left:423px;
+	height:42px; 
+	width:400px;
+	float:left;
+	}
+		
+.hotPlace{
+	float:left;
+	margin-left:15px;
+	}
