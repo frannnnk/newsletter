@@ -59,111 +59,6 @@
 		}, 50);
 
 	}
-	
-	
-	
-	$.noty.defaults = {
-		  layout: 'topCenter',
-		  theme: 'default',
-		  type: 'alert',
-		  text: '',
-		  dismissQueue: false, // If you want to use queue feature set this true
-		  template: '<div class="noty_message font_NeoSansRegular"><span class="noty_text"></span><div class="noty_close"></div></div>',
-		  animation: {
-		    open: {height: 'toggle'},
-		    close: {height: 'toggle'},
-		    easing: 'swing',
-		    speed: 500 // opening & closing animation speed
-		  },
-		  timeout: 3000, // delay for closing event. Set false for sticky notifications
-		  force: false, // adds notification to the beginning of queue when set to true
-		  modal: false,
-		  closeWith: ['click'], // ['click', 'button', 'hover']
-		  callback: {
-		    onShow: function() {},
-		    afterShow: function() {},
-		    onClose: function() {},
-		    afterClose: function() {}
-		  },
-		  buttons: false // an array of buttons
-};
-
-	function validateBeforeSubmit() {
-		var errorMsg = '';
-		
-		
-		if ( $('#email').val().trim() == '' ) {
-			errorMsg += "Please enter email.<br/>";
-		} else if (!isValidEmailAddress($('#email').val())) {
-			errorMsg += "Please enter a valid email address.<br/>";
-		}
-		
-		
-		
-		var aoi = $('.Checkbox:checked').map(function() {return this.value;}).get().join(',');
-		
-		if (aoi == null || aoi == '') {
-			errorMsg += "Please choose something you like.<br/>";
-		}	
-		
-			
-		
-		
-		if (!('' == errorMsg)) {
-			showError(errorMsg);
-		} else {
-				
-				$('#aoi').val(aoi);
-		
-				var nbn = noty({text: 'Submitting your request...',type: 'information',modal: true,dismissQueue: true,force: true, timeout: false});
-				
-				
-				$.post("account.action?action=register", $('#registerForm').serialize(),function(data){
-				
-					var closeProcessing = window.setTimeout(function(){
-							nbn.close();
-					},1000);
-				
-				if (data == null || data == '') {
-					var nbn2 = noty({text: 'System Error.<br/>Click this message to close.', layout: 'center',type: 'error',modal: true,force: true, 
-					   template: '<div class="noty_message font_NeoSansRegular"><span class="noty_text"></span><div class="noty_close"></div></div>',
-					   timeout: false});
-				}  else {
-				
-									var obj = jQuery.parseJSON(data);
-				
-				
-				
-				
-										if ("S" == obj.result) {
-										
-											var nbn2 = noty({text: '<b>We have successfully received your request</b><br/><br/>We will review your information and notification email with your login details will be sent out when your request has been approved.<br/><br/>Click this message to close.', layout: 'center',type: 'success',modal: true,force: true, 
-											   template: '<div class="noty_message font_NeoSansRegular"><span class="noty_text"></span><div class="noty_close"></div></div>',
-											   timeout: false});
-											   
-										} else {
-											
-											var nbn2 = noty({text: obj.message+'<br/>Click this message to close.', layout: 'center',type: 'error',modal: true,force: true, 
-											   template: '<div class="noty_message font_NeoSansRegular"><span class="noty_text"></span><div class="noty_close"></div></div>',
-											   timeout: false});
-										}
-				
-				}
-				
-
-			
-			});
-			
-		}
-		
-	}
-	
-	function showError(msg){	
-		var n = noty({text: msg,type: 'information'});	
-	}
-
-
-	
 </script>
 
 		<!--[if IE]>
@@ -185,10 +80,10 @@
 	</head>
 	
 	<body>
-		<form action="" name="registerForm" id="registerForm">
+		<form action="" name="loginForm" id="loginForm">
 			<div
 				style="width: 750px; border-bottom: 1px solid #d9d9d9; margin-top: -300px; margin-left: -375px; padding-top: 30px; padding-bottom: 30px;"
-				class="position_centered_absolute font_NeoSansRegular formee" id="header-join-u">
+				class="position_centered_absolute font_NeoSansRegular formee">
 				<span style="font-size: 30px;"><span
 					style="font-size: 30px; font-weight: bolder;">Join Us</span>
 				</span>
@@ -196,7 +91,7 @@
 
 			<div
 				style="width: 750px; margin-top: -230px; margin-left: -375px; padding-top: 30px; padding-bottom: 30px;"
-				class="position_centered_absolute font_NeoSansRegular formee" id="header-new-m">
+				class="position_centered_absolute font_NeoSansRegular formee">
 				<span style="font-size: 17px; line-height: 110%">New members
 					are always welcome. <br />
 					<br />
@@ -223,7 +118,7 @@
 								Email
 								<em class="formee-req">*</em>
 							</label>
-							<input type="text" value="" name="email" id="email"/>
+							<input type="text" value="" name="userid" />
 						</div>
 
 						<div class="grid-12-12">
@@ -231,7 +126,7 @@
 								Location
 								<em class="formee-req">*</em>
 							</label>
-							<select class="formee-medium" name="location" id="location">
+							<select class="formee-medium">
 								<option value="">
 									Select One
 								</option>
@@ -925,22 +820,331 @@
 								Native Language
 								<em class="formee-req">*</em>
 							</label>
-							<select class="formee-medium" name="language" id="language">
+							<select class="formee-medium">
 								
 								
-								<option value="English">English</option>
-								<option value="Chinese-Cantonese">Chinese, Cantonese</option>
-								<option value="Chinese-Mandarin">Chinese, Mandarin</option>
-								<option value="Chinese-Other">Chinese, other</option>
-								<option value="French">French</option>
-								<option value="German">German</option>
-								<option value="Italian">Italian</option>
-								<option value="Japanese">Japanese</option>
-								<option value="Korean">Korean</option>
-								<option value="Malay">Malay</option>
-								<option value="Russian">Russian</option>
-								<option value="Spanish">Spanish</option>
-								<option value="Other">Other</option>
+								<option value="1">
+									English
+								<option value="11">
+									Chinese, Cantonese
+								<option value="12">
+									Chinese, Mandarin
+								<option value="13">
+									Chinese, other
+								
+								<option value="77">
+									Afrikaans
+								<option value="106">
+									Akan
+								<option value="60">
+									Albanian
+								<option value="94">
+									Amharic (Ethiopian)
+								<option value="18">
+									Arabic, Egyptian
+								<option value="3">
+									Arabic, Middle Eastern
+								<option value="2">
+									Arabic, Moroccan
+								<option value="4">
+									Arabic, other
+								<option value="82">
+									Aramaic
+								<option value="64">
+									Armenian
+								<option value="112">
+									Assamese
+								<option value="78">
+									Assyrian
+								<option value="72">
+									Azerbaijani
+								<option value="145">
+									Baoulé (Baule, Bawule)
+								<option value="7">
+									Basque
+								<option value="144">
+									Bavarian (Austro-Bavarian)
+								<option value="100">
+									Belarusian
+								<option value="153">
+									Bemba (Chiwemba, Wemba)
+								<option value="8">
+									Bengali
+								<option value="9">
+									Berber
+								<option value="59">
+									Bosnian
+								<option value="116">
+									Breton
+								<option value="10">
+									Bulgarian
+								<option value="96">
+									Burmese
+								<option value="65">
+									Cambodian (Khmer)
+								<option value="55">
+									Catalan
+								<option value="136">
+									Cebuano (Bisaya)
+								<option value="95">
+									Chichewa (Nyanja)
+								<option value="11">
+									Chinese, Cantonese
+								<option value="12">
+									Chinese, Mandarin
+								<option value="13">
+									Chinese, other
+								<option value="147">
+									Chuvash (Bulgar)
+								<option value="14">
+									Creole
+								<option value="83">
+									Croatian
+								<option value="15">
+									Czech
+								<option value="16">
+									Danish
+								<option value="17">
+									Dutch
+								<option value="1">
+									English
+								<option value="19">
+									Esperanto
+								<option value="63">
+									Estonian
+								<option value="146">
+									Faroese
+								<option value="88">
+									Fijian
+								<option value="20">
+									Filipino (Tagalog)
+								<option value="21">
+									Finnish
+								<option value="155">
+									Fon (Dahomeen, Djedji, Fongbe)
+								<option value="22">
+									French
+								<option value="68">
+									Gaelic (Irish)
+								<option value="69">
+									Gaelic (Scottish)
+								<option value="79">
+									Galician
+								<option value="71">
+									Georgian
+								<option value="23">
+									German
+								<option value="24">
+									Greek
+								<option value="74">
+									Gujarati
+								<option value="138">
+									Hausa
+								<option value="73">
+									Hawaiian
+								<option value="25">
+									Hebrew
+								<option value="26">
+									Hindi
+								<option value="117">
+									Hmong
+								<option value="27">
+									Hungarian
+								<option value="56">
+									Icelandic
+								<option value="109">
+									Ido
+								<option value="157">
+									Igbo (Ibo)
+								<option value="5">
+									Indonesian (Bahasa)
+								<option value="108">
+									Interlingua
+								<option value="29">
+									Italian
+								<option value="30">
+									Japanese
+								<option value="159">
+									Kachchi
+								<option value="67">
+									Kannada
+								<option value="91">
+									Kazakh
+								<option value="141">
+									Kituba (Kikoongo, Munukutuba)
+								<option value="123">
+									Konkani
+								<option value="143">
+									Konkani (Kunabi, Cugani, Bankoti)
+								<option value="31">
+									Korean
+								<option value="53">
+									Kurdish
+								<option value="135">
+									Kyrgyz (Kara-Kirgiz, Kirghiz, Kirgiz)
+								<option value="133">
+									Ladino
+								<option value="84">
+									Lao
+								<option value="57">
+									Latin
+								<option value="62">
+									Latvian
+								<option value="114">
+									Ligurian
+								<option value="142">
+									Lingala (Ngala)
+								<option value="61">
+									Lithuanian
+								<option value="66">
+									Lombard
+								<option value="148">
+									Luxembourgeois (Luxemburgian)
+								<option value="87">
+									Macedonian
+								<option value="115">
+									Malagasy
+								<option value="6">
+									Malay (Bahasa Malaysia)
+								<option value="93">
+									Malayalam
+								<option value="119">
+									Maldivian (Dhivehi)
+								<option value="101">
+									Maltese
+								<option value="122">
+									Maori (New Zealand Maori)
+								<option value="85">
+									Marathi
+								<option value="105">
+									Mongolian
+								<option value="158">
+									Montenegrin
+								<option value="104">
+									Native American (Ojibway, Cree...)
+								<option value="81">
+									Nepali
+								<option value="102">
+									Newari
+								<option value="32">
+									Norwegian
+								<option value="151">
+									Nyanja (Chewa, Chinyanja)
+								<option value="154">
+									Occitan (Occitani)
+								<option value="90">
+									Oriya
+								<option value="152">
+									Oromo (Oromoo , Oromiffa)
+								<option value="124">
+									Paraguayan Guarani
+								<option value="33">
+									Persian (Farsi, Dari)
+								<option value="34">
+									Polish
+								<option value="35">
+									Portuguese
+								<option value="128">
+									Pulaar
+								<option value="36">
+									Punjabi
+								<option value="58">
+									Pushto (Pashto)
+								<option value="80">
+									Quechua
+								<option value="37">
+									Romanian
+								<option value="89">
+									Romansch
+								<option value="150">
+									Romany (Gypsy, Danubian)
+								<option value="140">
+									Rundi (Kirundi, Urundi)
+								<option value="38">
+									Russian
+								<option value="139">
+									Rwanda (Kinyarwanda)
+								<option value="121">
+									Saami (sami)
+								<option value="132">
+									Samoan
+								<option value="111">
+									Sanskrit
+								<option value="39">
+									Serbian (Serbo-Croatian)
+								<option value="98">
+									Shona
+								<option value="131">
+									Sicilian
+								<option value="40">
+									Sign Language
+								<option value="76">
+									Sindhi
+								<option value="86">
+									Sinhalese
+								<option value="41">
+									Slovak
+								<option value="54">
+									Slovenian
+								<option value="99">
+									Somali
+								<option value="42">
+									Spanish
+								<option value="43">
+									Swahili
+								<option value="44">
+									Swedish
+								<option value="149">
+									Tajiki (Tajiki, Tadzhik)
+								<option value="45">
+									Tamil
+								<option value="126">
+									Tatar (Tartar)
+								<option value="75">
+									Telugu
+								<option value="103">
+									Tetum
+								<option value="46">
+									Thai
+								<option value="47">
+									Tibetan
+								<option value="137">
+									Tigrigna (Tigray, Tigrinya)
+								<option value="107">
+									Tongan
+								<option value="92">
+									Tswana
+								<option value="134">
+									Tumbuka
+								<option value="48">
+									Turkish
+								<option value="49">
+									Ukrainian
+								<option value="50">
+									Urdu
+								<option value="127">
+									Uyghur (Wighor)
+								<option value="97">
+									Uzbek
+								<option value="113">
+									Venetian
+								<option value="51">
+									Vietnamese
+								<option value="70">
+									Welsh
+								<option value="129">
+									Wolof
+								<option value="118">
+									Xhosa
+								<option value="52">
+									Yiddish
+								<option value="130">
+									Yoruba
+								<option value="125">
+									Zulu
+									
+								<option value="120">
+									- Other -
 							</select>
 						</div>
 
@@ -952,120 +1156,117 @@
 							
 <fieldset>
 	<legend><span class="legend_css">Activities</span></legend>
-	<input id="aoi" name="aoi" type="hidden" value=""></input>
         <ul class='formee-list'>
-        <li><input type="checkbox" name="areaofinterest" value="activities_act" id="activities_act" class="Checkbox"> Activism</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_ant" id="activities_ant" class="Checkbox"> Antiques / Collectibles</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_ast" id="activities_ast" class="Checkbox"> Astrology</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_boo" id="activities_boo" class="Checkbox"> Books / Reading</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_cam" id="activities_cam" class="Checkbox" > Camping / Outdoors</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_car" id="activities_car" class="Checkbox" > Cars</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_col" id="activities_col" class="Checkbox" > Collecting</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_com" id="activities_com" class="Checkbox"> Computers</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_dra" id="activities_dra" class="Checkbox"> Drag</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_fas" id="activities_fas" class="Checkbox"> Fashion</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_inv" id="activities_inv" class="Checkbox"> Investing</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_lea" id="activities_lea" class="Checkbox"> Leather</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_mot" id="activities_mot" class="Checkbox"> Motorcycles</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_pho" id="activities_pho" class="Checkbox"> Photography</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_pol" id="activities_pol" class="Checkbox"> Politics</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_sho" id="activities_sho" class="Checkbox" > Shopping</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_tra" id="activities_tra" class="Checkbox" > Travel</li>
+        <li><input type="checkbox" name="activities_act" id="activities_act" value="1" class="Checkbox"> Activism</li>
+        <li><input type="checkbox" name="activities_ant" id="activities_ant" value="1" class="Checkbox"> Antiques / Collectibles</li>
+        <li><input type="checkbox" name="activities_ast" id="activities_ast" value="1" class="Checkbox"> Astrology</li>
+        <li><input type="checkbox" name="activities_boo" id="activities_boo" value="1" class="Checkbox"> Books / Reading</li>
+        <li><input type="checkbox" name="activities_cam" id="activities_cam" value="1" class="Checkbox" > Camping / Outdoors</li>
+        <li><input type="checkbox" name="activities_car" id="activities_car" value="1" class="Checkbox" > Cars</li>
+        <li><input type="checkbox" name="activities_col" id="activities_col" value="1" class="Checkbox" > Collecting</li>
+        <li><input type="checkbox" name="activities_com" id="activities_com" value="1" class="Checkbox"> Computers</li>
+        <li><input type="checkbox" name="activities_dra" id="activities_dra" value="1" class="Checkbox"> Drag</li>
+        <li><input type="checkbox" name="activities_fas" id="activities_fas" value="1" class="Checkbox"> Fashion</li>
+        <li><input type="checkbox" name="activities_inv" id="activities_inv" value="1" class="Checkbox"> Investing</li>
+        <li><input type="checkbox" name="activities_lea" id="activities_lea" value="1" class="Checkbox"> Leather</li>
+        <li><input type="checkbox" name="activities_mot" id="activities_mot" value="1" class="Checkbox"> Motorcycles</li>
+        <li><input type="checkbox" name="activities_pho" id="activities_pho" value="1" class="Checkbox"> Photography</li>
+        <li><input type="checkbox" name="activities_pol" id="activities_pol" value="1" class="Checkbox"> Politics</li>
+        <li><input type="checkbox" name="activities_sho" id="activities_sho" value="1" class="Checkbox" > Shopping</li>
+        <li><input type="checkbox" name="activities_tra" id="activities_tra" value="1" class="Checkbox" > Travel</li>
         </ul>
 </fieldset>
 <fieldset>
 	<legend><span class="legend_css">Entertainment</span></legend>
         <ul class='formee-list'>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_club" id="entertainment_club" class="Checkbox"> Clubbing / Parties</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_comi" id="entertainment_comi" class="Checkbox"> Comics / Anime</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_comp" id="entertainment_comp" class="Checkbox" > Computer</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_danc" id="entertainment_danc" class="Checkbox"> Dancing</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_gamb" id="entertainment_gamb" class="Checkbox"> Gambling</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_live" id="entertainment_live" class="Checkbox" > Live music / Music</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_movi" id="entertainment_movi" class="Checkbox" > Movies / Film</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_symp" id="entertainment_symp" class="Checkbox"> Symphony / Opera</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_thea" id="entertainment_thea" class="Checkbox" > Theater Arts</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_tvvi" id="entertainment_tvvi" class="Checkbox" > TV / Videos / DVDs</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_wine" id="entertainment_wine" class="Checkbox"> Wine Tasting</li>
+        <li><input type="checkbox" name="entertainment_club" id="entertainment_club" value="1" class="Checkbox"> Clubbing / Parties</li>
+        <li><input type="checkbox" name="entertainment_comi" id="entertainment_comi" value="1" class="Checkbox"> Comics / Anime</li>
+        <li><input type="checkbox" name="entertainment_comp" id="entertainment_comp" value="1" class="Checkbox" > Computer</li>
+        <li><input type="checkbox" name="entertainment_danc" id="entertainment_danc" value="1" class="Checkbox"> Dancing</li>
+        <li><input type="checkbox" name="entertainment_gamb" id="entertainment_gamb" value="1" class="Checkbox"> Gambling</li>
+        <li><input type="checkbox" name="entertainment_live" id="entertainment_live" value="1" class="Checkbox" > Live music / Music</li>
+        <li><input type="checkbox" name="entertainment_movi" id="entertainment_movi" value="1" class="Checkbox" > Movies / Film</li>
+        <li><input type="checkbox" name="entertainment_symp" id="entertainment_symp" value="1" class="Checkbox"> Symphony / Opera</li>
+        <li><input type="checkbox" name="entertainment_thea" id="entertainment_thea" value="1" class="Checkbox" > Theater Arts</li>
+        <li><input type="checkbox" name="entertainment_tvvi" id="entertainment_tvvi" value="1" class="Checkbox" > TV / Videos / DVDs</li>
+        <li><input type="checkbox" name="entertainment_wine" id="entertainment_wine" value="1" class="Checkbox"> Wine Tasting</li>
         </ul>
         
         </fieldset>
         <fieldset>
 	<legend><span class="legend_css">Music</span></legend>
         <ul class='formee-list'>
-        <li><input type="checkbox" name="areaofinterest" value="music_alt" id="music_alt" class="Checkbox"> Alternative</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_cla" id="music_cla" class="Checkbox" > Classical</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_cou" id="music_cou" class="Checkbox"> Country</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_dan" id="music_dan" class="Checkbox"> Dance</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_gos" id="music_gos" class="Checkbox" > Gospel</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_jaz" id="music_jaz" class="Checkbox"> Jazz</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_met" id="music_met" class="Checkbox"> Metal</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_new" id="music_new" class="Checkbox"> New Age</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_ope" id="music_ope" class="Checkbox" > Opera</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_pop" id="music_pop" class="Checkbox" > Pop</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_roc" id="music_roc" class="Checkbox" > Rock</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_rnb" id="music_rnb" class="Checkbox" > R&B</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_voc" id="music_voc" class="Checkbox"> Vocal</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_wor" id="music_wor" class="Checkbox"> World</li>
+        <li><input type="checkbox" name="music_alt" id="music_alt" value="1" class="Checkbox"> Alternative</li>
+        <li><input type="checkbox" name="music_cla" id="music_cla" value="1" class="Checkbox" > Classical</li>
+        <li><input type="checkbox" name="music_cou" id="music_cou" value="1" class="Checkbox"> Country</li>
+        <li><input type="checkbox" name="music_dan" id="music_dan" value="1" class="Checkbox"> Dance</li>
+        <li><input type="checkbox" name="music_gos" id="music_gos" value="1" class="Checkbox" > Gospel</li>
+        <li><input type="checkbox" name="music_jaz" id="music_jaz" value="1" class="Checkbox"> Jazz</li>
+        <li><input type="checkbox" name="music_met" id="music_met" value="1" class="Checkbox"> Metal</li>
+        <li><input type="checkbox" name="music_new" id="music_new" value="1" class="Checkbox"> New Age</li>
+        <li><input type="checkbox" name="music_ope" id="music_ope" value="1" class="Checkbox" > Opera</li>
+        <li><input type="checkbox" name="music_pop" id="music_pop" value="1" class="Checkbox" > Pop</li>
+        <li><input type="checkbox" name="music_roc" id="music_roc" value="1" class="Checkbox" > Rock</li>
+        <li><input type="checkbox" name="music_rnb" id="music_rnb" value="1" class="Checkbox" > R&B</li>
+        <li><input type="checkbox" name="music_voc" id="music_voc" value="1" class="Checkbox"> Vocal</li>
+        <li><input type="checkbox" name="music_wor" id="music_wor" value="1" class="Checkbox"> World</li>
         </ul></fieldset>
         
 <fieldset>
 	<legend><span class="legend_css">Health,&nbsp;&nbsp;Sports&nbsp;&nbsp;and&nbsp;&nbsp;Fitness</span></legend>
         <ul class='formee-list'>
-        <li><input type="checkbox" name="areaofinterest" value="health_aero" id="health_aero" class="Checkbox"> Aerobics / Exercise</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_amer" id="health_amer" class="Checkbox"> American Football</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_base" id="health_base" class="Checkbox"> Baseball / Softball</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_bask" id="health_bask" class="Checkbox"> Basketball</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_beac" id="health_beac" class="Checkbox"> Beach volleyball</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_biki" id="health_biki" class="Checkbox" > Biking</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_bill" id="health_bill" class="Checkbox"> Billiards / Pool</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_body" id="health_body" class="Checkbox"> Bodybuilding</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_extr" id="health_extr" class="Checkbox"> Extreme sports</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_figu" id="health_figu" class="Checkbox"> Figure skating</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_golf" id="health_golf" class="Checkbox"> Golf</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_hiki" id="health_hiki" class="Checkbox" > Hiking</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_hock" id="health_hock" class="Checkbox"> Hockey</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_holi" id="health_holi" class="Checkbox"> Holistic Health</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_inli" id="health_inli" class="Checkbox"> Inline skating</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_mart" id="health_mart" class="Checkbox"> Martial Arts</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_medi" id="health_medi" class="Checkbox" > Meditation</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_nutr" id="health_nutr" class="Checkbox"> Nutrition</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_rugb" id="health_rugb" class="Checkbox"> Rugby</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_runn" id="health_runn" class="Checkbox"> Running</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_sail" id="health_sail" class="Checkbox"> Sailing / Boating</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_scub" id="health_scub" class="Checkbox"> Scuba diving</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_skat" id="health_skat" class="Checkbox"> Skateboarding</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_skii" id="health_skii" class="Checkbox"> Skiing</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_snow" id="health_snow" class="Checkbox"> Snowboarding</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_socc" id="health_socc" class="Checkbox"> Soccer / Football</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_surf" id="health_surf" class="Checkbox"> Surfing</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_swim" id="health_swim" class="Checkbox"> Swimming</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_tenn" id="health_tenn" class="Checkbox"> Tennis / Racquet sports</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_tria" id="health_tria" class="Checkbox"> Triathlon</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_voll" id="health_voll" class="Checkbox"> Volleyball</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_walk" id="health_walk" class="Checkbox" > Walking</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_weig" id="health_weig" class="Checkbox"> Weight Training</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_wres" id="health_wres" class="Checkbox"> Wrestling</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_yoga" id="health_yoga" class="Checkbox"> Yoga</li>
+        <li><input type="checkbox" name="health_aero" id="health_aero" value="1" class="Checkbox"> Aerobics / Exercise</li>
+        <li><input type="checkbox" name="health_amer" id="health_amer" value="1" class="Checkbox"> American Football</li>
+        <li><input type="checkbox" name="health_base" id="health_base" value="1" class="Checkbox"> Baseball / Softball</li>
+        <li><input type="checkbox" name="health_bask" id="health_bask" value="1" class="Checkbox"> Basketball</li>
+        <li><input type="checkbox" name="health_beac" id="health_beac" value="1" class="Checkbox"> Beach volleyball</li>
+        <li><input type="checkbox" name="health_biki" id="health_biki" value="1" class="Checkbox" > Biking</li>
+        <li><input type="checkbox" name="health_bill" id="health_bill" value="1" class="Checkbox"> Billiards / Pool</li>
+        <li><input type="checkbox" name="health_body" id="health_body" value="1" class="Checkbox"> Bodybuilding</li>
+        <li><input type="checkbox" name="health_extr" id="health_extr" value="1" class="Checkbox"> Extreme sports</li>
+        <li><input type="checkbox" name="health_figu" id="health_figu" value="1" class="Checkbox"> Figure skating</li>
+        <li><input type="checkbox" name="health_golf" id="health_golf" value="1" class="Checkbox"> Golf</li>
+        <li><input type="checkbox" name="health_hiki" id="health_hiki" value="1" class="Checkbox" > Hiking</li>
+        <li><input type="checkbox" name="health_hock" id="health_hock" value="1" class="Checkbox"> Hockey</li>
+        <li><input type="checkbox" name="health_holi" id="health_holi" value="1" class="Checkbox"> Holistic Health</li>
+        <li><input type="checkbox" name="health_inli" id="health_inli" value="1" class="Checkbox"> Inline skating</li>
+        <li><input type="checkbox" name="health_mart" id="health_mart" value="1" class="Checkbox"> Martial Arts</li>
+        <li><input type="checkbox" name="health_medi" id="health_medi" value="1" class="Checkbox" > Meditation</li>
+        <li><input type="checkbox" name="health_nutr" id="health_nutr" value="1" class="Checkbox"> Nutrition</li>
+        <li><input type="checkbox" name="health_rugb" id="health_rugb" value="1" class="Checkbox"> Rugby</li>
+        <li><input type="checkbox" name="health_runn" id="health_runn" value="1" class="Checkbox"> Running</li>
+        <li><input type="checkbox" name="health_sail" id="health_sail" value="1" class="Checkbox"> Sailing / Boating</li>
+        <li><input type="checkbox" name="health_scub" id="health_scub" value="1" class="Checkbox"> Scuba diving</li>
+        <li><input type="checkbox" name="health_skat" id="health_skat" value="1" class="Checkbox"> Skateboarding</li>
+        <li><input type="checkbox" name="health_skii" id="health_skii" value="1" class="Checkbox"> Skiing</li>
+        <li><input type="checkbox" name="health_snow" id="health_snow" value="1" class="Checkbox"> Snowboarding</li>
+        <li><input type="checkbox" name="health_socc" id="health_socc" value="1" class="Checkbox"> Soccer / Football</li>
+        <li><input type="checkbox" name="health_surf" id="health_surf" value="1" class="Checkbox"> Surfing</li>
+        <li><input type="checkbox" name="health_swim" id="health_swim" value="1" class="Checkbox"> Swimming</li>
+        <li><input type="checkbox" name="health_tenn" id="health_tenn" value="1" class="Checkbox"> Tennis / Racquet sports</li>
+        <li><input type="checkbox" name="health_tria" id="health_tria" value="1" class="Checkbox"> Triathlon</li>
+        <li><input type="checkbox" name="health_voll" id="health_voll" value="1" class="Checkbox"> Volleyball</li>
+        <li><input type="checkbox" name="health_walk" id="health_walk" value="1" class="Checkbox" > Walking</li>
+        <li><input type="checkbox" name="health_weig" id="health_weig" value="1" class="Checkbox"> Weight Training</li>
+        <li><input type="checkbox" name="health_wres" id="health_wres" value="1" class="Checkbox"> Wrestling</li>
+        <li><input type="checkbox" name="health_yoga" id="health_yoga" value="1" class="Checkbox"> Yoga</li>
         </ul></fieldset>
         
-	<fieldset>
-		<legend><span class="legend_css">Home&nbsp;/&nbsp;Family</span></legend>
-	        <ul class='formee-list'>
-	        <li><input type="checkbox" name="areaofinterest" value="home_coo" id="home_coo" class="Checkbox" > Cooking</li>
-	        <li><input type="checkbox" name="areaofinterest" value="home_cra" id="home_cra" class="Checkbox"> Crafts</li>
-	        <li><input type="checkbox" name="areaofinterest" value="home_dec" id="home_dec" class="Checkbox"> Decorating</li>
-	        <li><input type="checkbox" name="areaofinterest" value="home_ent" id="home_ent" class="Checkbox"> Entertaining</li>
-	        <li><input type="checkbox" name="areaofinterest" value="home_gar" id="home_gar" class="Checkbox"> Gardening</li>
-	        <li><input type="checkbox" name="areaofinterest" value="home_hom" id="home_hom" class="Checkbox"> Home Improvement</li>
-	        <li><input type="checkbox" name="areaofinterest" value="home_mar" id="home_mar" class="Checkbox"> Marriage</li>
-	        <li><input type="checkbox" name="areaofinterest" value="home_par" id="home_par" class="Checkbox"> Parenting</li>
-	        <li><input type="checkbox" name="areaofinterest" value="home_pet" id="home_pet" class="Checkbox" > Pets</li>
-	        <li><input type="checkbox" name="areaofinterest" value="home_ret" id="home_ret" class="Checkbox"> Retirement</li>
-	        </ul>
-	 </fieldset>
-	 
-	
+<fieldset>
+	<legend><span class="legend_css">Home&nbsp;/&nbsp;Family</span></legend>
+        <ul class='formee-list'>
+        <li><input type="checkbox" name="home_coo" id="home_coo" value="1" class="Checkbox" > Cooking</li>
+        <li><input type="checkbox" name="home_cra" id="home_cra" value="1" class="Checkbox"> Crafts</li>
+        <li><input type="checkbox" name="home_dec" id="home_dec" value="1" class="Checkbox"> Decorating</li>
+        <li><input type="checkbox" name="home_ent" id="home_ent" value="1" class="Checkbox"> Entertaining</li>
+        <li><input type="checkbox" name="home_gar" id="home_gar" value="1" class="Checkbox"> Gardening</li>
+        <li><input type="checkbox" name="home_hom" id="home_hom" value="1" class="Checkbox"> Home Improvement</li>
+        <li><input type="checkbox" name="home_mar" id="home_mar" value="1" class="Checkbox"> Marriage</li>
+        <li><input type="checkbox" name="home_par" id="home_par" value="1" class="Checkbox"> Parenting</li>
+        <li><input type="checkbox" name="home_pet" id="home_pet" value="1" class="Checkbox" > Pets</li>
+        <li><input type="checkbox" name="home_ret" id="home_ret" value="1" class="Checkbox"> Retirement</li>
+        </ul>
+       </fieldset>
 							
 							</div>
 
@@ -1077,7 +1278,7 @@
 
 						<div class="grid-12-12">
 							<input class="right" type="button" title="Login"
-								value="Send the form to us" onclick="validateBeforeSubmit();" />
+								value="Send the form to us" onclick="login();" />
 						</div>
 
 

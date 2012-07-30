@@ -28,7 +28,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author 胡圣朗
  * 
  */
-public class LoginAction extends ActionSupport {
+public class AccountAction extends ActionSupport {
 
 	private static Logger logger = Logger.getLogger(RegisterAction.class
 			.getName()); // 日志对象;
@@ -54,6 +54,8 @@ public class LoginAction extends ActionSupport {
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		
 		
 		redirectpath = request.getParameter("return");
 		action = request.getParameter("action");
@@ -88,7 +90,18 @@ public class LoginAction extends ActionSupport {
 			
 			return null;
 		
-		} else {
+		} else if("register".equalsIgnoreCase(action)) {
+			
+			
+			String areaOfInterest = request.getParameter("aoi");
+			String email = request.getParameter("email");
+			String language = request.getParameter("language");
+			String location = request.getParameter("location");
+			
+			
+			return null;
+			
+		}else {
 			return null;
 		}
 		

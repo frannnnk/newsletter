@@ -13,16 +13,10 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-/**
- * 账户注册控制类(注册不用验证码效验)
- * 
- * @author 胡圣朗
- * 
- */
+
 public class RegisterAction extends ActionSupport {
 
-	private static Logger logger = Logger.getLogger(RegisterAction.class
-			.getName()); // 日志对象;
+	private Logger logger = Logger.getLogger(this.getClass()); // 日志对象;
 	private AccountRelateLogic logic = new AccountRelateLogic(); // 逻辑操作类.
 
 	private String reguserid = "";

@@ -26,7 +26,7 @@ function login(){
 	// encrypt password
 	$('#encryptedPassword').val(hex_md5($('#encryptedPassword').val()));
 
-	$.post("login.action?action=login", $('#loginForm').serialize(),function(data){
+	$.post("account.action?action=login", $('#loginForm').serialize(),function(data){
 			//alert(data);
 			
 			var obj = jQuery.parseJSON(data);

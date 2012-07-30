@@ -27,6 +27,15 @@ a:hover{
 .font_NeoSansRegular{
 	font-family:NeoSansRegular;
 	}
+.size-12{
+	font-size:12px;
+	}
+.padding-3-3-10-10{
+	padding:3px;
+	padding-left:10px;
+	padding-right:10px;
+	
+   }
 
 .border_shadow{
 	border-shadow:5px;
