@@ -66,37 +66,41 @@ public class AccountRelateLogic {
 	
 	
 	
+	/**
+	 * 检验账户是否已经存在
+	 * 
+	 * @param userid
+	 * @return true-账户不存在；false-账户已存在 。
+	 */
+	public boolean checkAccountIsExist(String userEmail) {
+		logger.debug("检测账户是否存在");
+		return dao.checkAccount(userEmail);
+	}
+	
+	
+	
+	
+	
+	
+	public boolean register(UsersModel user) {
+		
+		boolean flag = dao.insertAccount(user);
+		
+		if (flag) {
+			// TODO:自动发送邮箱地址确认邮件.
+			//sendAccountConfirmEmail(userid, nickname);
+		}
+		return flag;
+	}
+	
+	
+	
+	
 	
 	
 	
 
-	/**
-	 * 账户注册操作
-	 * 
-	 * @param userid
-	 *            用户ID 就是EMAIL
-	 * @param nickname
-	 *            用户昵称
-	 * @param password
-	 *            用户密码（这里是未加密的密码）
-	 * @return
-	 */
-	public boolean account_register(String userid, String nickname,
-			String password) {
-		logger.debug("账户注册操作");
-		String encrypedPassword = MD5.MD5_Encryption(password);// 密码加密;
-		String createTime = CommonFunction.getcurrentTimetext();
-		userid = CommonFunction.toLowerCase(userid);// 大写转小写.
-		boolean flag = dao.insertAccount(userid, nickname, encrypedPassword,
-				createTime);
-		if (flag) {
-			// 自动发送邮箱地址确认邮件.
-			sendAccountConfirmEmail(userid, nickname);
-			// 用户好友邀请限额表插入初始数据.
-			dao.insertInvitationQuota(userid, Constant.INVITATIONQUOTA);
-		}
-		return flag;
-	}
+	
 
 	/**
 	 * 自动发送邮箱地址确认邮件.
@@ -127,16 +131,7 @@ public class AccountRelateLogic {
 		mail.mailSenderForCustom(addresses, subject, contentHTML);
 	}
 
-	/**
-	 * 检验账户是否已经存在
-	 * 
-	 * @param userid
-	 * @return true-账户不存在；false-账户已存在 。
-	 */
-	public boolean checkAccountIsExist(String userid) {
-		logger.debug("检测账户是否存在");
-		return dao.checkAccount(userid);
-	}
+	
 
 	
 	

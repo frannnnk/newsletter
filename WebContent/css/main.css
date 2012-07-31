@@ -18,7 +18,12 @@ a:hover{
   left: 50%;
 }
 
-.position_centered_absolute {
+.position_top_left{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.position_centered_absolute{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -27,6 +32,7 @@ a:hover{
 .font_NeoSansRegular{
 	font-family:NeoSansRegular;
 	}
+	
 .size-12{
 	font-size:12px;
 	}

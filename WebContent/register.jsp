@@ -92,10 +92,14 @@
 		var errorMsg = '';
 		
 		
+		if ($('#screenname').val().trim() == '') {
+			errorMsg += "<li>Please choose a screen name.</li>";
+		}
+		
 		if ( $('#email').val().trim() == '' ) {
-			errorMsg += "Please enter email.<br/>";
+			errorMsg += "<li>Please enter email.</li>";
 		} else if (!isValidEmailAddress($('#email').val())) {
-			errorMsg += "Please enter a valid email address.<br/>";
+			errorMsg += "<li>Please enter a valid email address.</li>";
 		}
 		
 		
@@ -103,7 +107,7 @@
 		var aoi = $('.Checkbox:checked').map(function() {return this.value;}).get().join(',');
 		
 		if (aoi == null || aoi == '') {
-			errorMsg += "Please choose something you like.<br/>";
+			errorMsg += "<li>Please choose something you like.</li>";
 		}	
 		
 			
@@ -115,7 +119,14 @@
 				
 				$('#aoi').val(aoi);
 		
-				var nbn = noty({text: 'Submitting your request...',type: 'information',modal: true,dismissQueue: true,force: true, timeout: false});
+				var nbn = noty({text: 'Submitting your request...',type: 'information',modal: true,dismissQueue: true,force: true,
+					 animation: {
+				    open: {height: 'toggle'},
+				    close: {height: 'toggle'},
+				    easing: 'swing',
+				    speed: 100 // opening & closing animation speed
+				  },
+				 timeout: false});
 				
 				
 				$.post("account.action?action=register", $('#registerForm').serialize(),function(data){
@@ -139,6 +150,12 @@
 										
 											var nbn2 = noty({text: '<b>We have successfully received your request</b><br/><br/>We will review your information and notification email with your login details will be sent out when your request has been approved.<br/><br/>Click this message to close.', layout: 'center',type: 'success',modal: true,force: true, 
 											   template: '<div class="noty_message font_NeoSansRegular"><span class="noty_text"></span><div class="noty_close"></div></div>',
+											   callback: {
+											    onShow: function() {},
+											    afterShow: function() {},
+											    onClose: function() {window.open('index.jsp','_self')},
+											    afterClose: function() {}
+											  },
 											   timeout: false});
 											   
 										} else {
@@ -218,6 +235,30 @@
 
 				<fieldset>
 					<div class="login" style="margin: 30px;">
+						
+						<div class="grid-6-12">
+							<label>
+								Screen Name
+								<em class="formee-req">*</em>
+							</label>
+							<input type="text" value="" name="screenname" id="screenname"/>
+						</div>
+						
+						<div class="grid-5-12">
+							<label>
+								Gender
+								<em class="formee-req">*</em>
+							</label>
+							<select class="formee-medium" name="gender" id=""gender"">
+								<option value="F">
+									Girl
+								</option>
+								<option value="M">
+									Boy
+								</option>
+							</select>
+						</div>
+						
 						<div class="grid-12-12">
 							<label>
 								Email
@@ -954,99 +995,99 @@
 	<legend><span class="legend_css">Activities</span></legend>
 	<input id="aoi" name="aoi" type="hidden" value=""></input>
         <ul class='formee-list'>
-        <li><input type="checkbox" name="areaofinterest" value="activities_act" id="activities_act" class="Checkbox"> Activism</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_ant" id="activities_ant" class="Checkbox"> Antiques / Collectibles</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_ast" id="activities_ast" class="Checkbox"> Astrology</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_boo" id="activities_boo" class="Checkbox"> Books / Reading</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_cam" id="activities_cam" class="Checkbox" > Camping / Outdoors</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_car" id="activities_car" class="Checkbox" > Cars</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_col" id="activities_col" class="Checkbox" > Collecting</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_com" id="activities_com" class="Checkbox"> Computers</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_dra" id="activities_dra" class="Checkbox"> Drag</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_fas" id="activities_fas" class="Checkbox"> Fashion</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_inv" id="activities_inv" class="Checkbox"> Investing</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_lea" id="activities_lea" class="Checkbox"> Leather</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_mot" id="activities_mot" class="Checkbox"> Motorcycles</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_pho" id="activities_pho" class="Checkbox"> Photography</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_pol" id="activities_pol" class="Checkbox"> Politics</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_sho" id="activities_sho" class="Checkbox" > Shopping</li>
-        <li><input type="checkbox" name="areaofinterest" value="activities_tra" id="activities_tra" class="Checkbox" > Travel</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_act" id="acts_act" class="Checkbox"> Activism</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_ant" id="acts_ant" class="Checkbox"> Antiques / Collectibles</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_ast" id="acts_ast" class="Checkbox"> Astrology</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_boo" id="acts_boo" class="Checkbox"> Books / Reading</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_cam" id="acts_cam" class="Checkbox" > Camping / Outdoors</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_car" id="acts_car" class="Checkbox" > Cars</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_col" id="acts_col" class="Checkbox" > Collecting</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_com" id="acts_com" class="Checkbox"> Computers</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_dra" id="acts_dra" class="Checkbox"> Drag</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_fas" id="acts_fas" class="Checkbox"> Fashion</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_inv" id="acts_inv" class="Checkbox"> Investing</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_lea" id="acts_lea" class="Checkbox"> Leather</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_mot" id="acts_mot" class="Checkbox"> Motorcycles</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_pho" id="acts_pho" class="Checkbox"> Photography</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_pol" id="acts_pol" class="Checkbox"> Politics</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_sho" id="acts_sho" class="Checkbox" > Shopping</li>
+        <li><input type="checkbox" name="areaofinterest" value="acts_tra" id="acts_tra" class="Checkbox" > Travel</li>
         </ul>
 </fieldset>
 <fieldset>
 	<legend><span class="legend_css">Entertainment</span></legend>
         <ul class='formee-list'>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_club" id="entertainment_club" class="Checkbox"> Clubbing / Parties</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_comi" id="entertainment_comi" class="Checkbox"> Comics / Anime</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_comp" id="entertainment_comp" class="Checkbox" > Computer</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_danc" id="entertainment_danc" class="Checkbox"> Dancing</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_gamb" id="entertainment_gamb" class="Checkbox"> Gambling</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_live" id="entertainment_live" class="Checkbox" > Live music / Music</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_movi" id="entertainment_movi" class="Checkbox" > Movies / Film</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_symp" id="entertainment_symp" class="Checkbox"> Symphony / Opera</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_thea" id="entertainment_thea" class="Checkbox" > Theater Arts</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_tvvi" id="entertainment_tvvi" class="Checkbox" > TV / Videos / DVDs</li>
-        <li><input type="checkbox" name="areaofinterest" value="entertainment_wine" id="entertainment_wine" class="Checkbox"> Wine Tasting</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_club" id="ent_club" class="Checkbox"> Clubbing / Parties</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_comi" id="ent_comi" class="Checkbox"> Comics / Anime</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_comp" id="ent_comp" class="Checkbox" > Computer</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_danc" id="ent_danc" class="Checkbox"> Dancing</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_gamb" id="ent_gamb" class="Checkbox"> Gambling</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_live" id="ent_live" class="Checkbox" > Live music / Music</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_movi" id="ent_movi" class="Checkbox" > Movies / Film</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_symp" id="ent_symp" class="Checkbox"> Symphony / Opera</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_thea" id="ent_thea" class="Checkbox" > Theater Arts</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_tvvi" id="ent_tvvi" class="Checkbox" > TV / Videos / DVDs</li>
+        <li><input type="checkbox" name="areaofinterest" value="ent_wine" id="ent_wine" class="Checkbox"> Wine Tasting</li>
         </ul>
         
         </fieldset>
         <fieldset>
 	<legend><span class="legend_css">Music</span></legend>
         <ul class='formee-list'>
-        <li><input type="checkbox" name="areaofinterest" value="music_alt" id="music_alt" class="Checkbox"> Alternative</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_cla" id="music_cla" class="Checkbox" > Classical</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_cou" id="music_cou" class="Checkbox"> Country</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_dan" id="music_dan" class="Checkbox"> Dance</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_gos" id="music_gos" class="Checkbox" > Gospel</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_jaz" id="music_jaz" class="Checkbox"> Jazz</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_met" id="music_met" class="Checkbox"> Metal</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_new" id="music_new" class="Checkbox"> New Age</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_ope" id="music_ope" class="Checkbox" > Opera</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_pop" id="music_pop" class="Checkbox" > Pop</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_roc" id="music_roc" class="Checkbox" > Rock</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_rnb" id="music_rnb" class="Checkbox" > R&B</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_voc" id="music_voc" class="Checkbox"> Vocal</li>
-        <li><input type="checkbox" name="areaofinterest" value="music_wor" id="music_wor" class="Checkbox"> World</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_alt" id="mu_alt" class="Checkbox"> Alternative</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_cla" id="mu_cla" class="Checkbox" > Classical</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_cou" id="mu_cou" class="Checkbox"> Country</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_dan" id="mu_dan" class="Checkbox"> Dance</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_gos" id="mu_gos" class="Checkbox" > Gospel</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_jaz" id="mu_jaz" class="Checkbox"> Jazz</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_met" id="mu_met" class="Checkbox"> Metal</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_new" id="mu_new" class="Checkbox"> New Age</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_ope" id="mu_ope" class="Checkbox" > Opera</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_pop" id="mu_pop" class="Checkbox" > Pop</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_roc" id="mu_roc" class="Checkbox" > Rock</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_rnb" id="mu_rnb" class="Checkbox" > R&B</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_voc" id="mu_voc" class="Checkbox"> Vocal</li>
+        <li><input type="checkbox" name="areaofinterest" value="mu_wor" id="mu_wor" class="Checkbox"> World</li>
         </ul></fieldset>
         
 <fieldset>
 	<legend><span class="legend_css">Health,&nbsp;&nbsp;Sports&nbsp;&nbsp;and&nbsp;&nbsp;Fitness</span></legend>
         <ul class='formee-list'>
-        <li><input type="checkbox" name="areaofinterest" value="health_aero" id="health_aero" class="Checkbox"> Aerobics / Exercise</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_amer" id="health_amer" class="Checkbox"> American Football</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_base" id="health_base" class="Checkbox"> Baseball / Softball</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_bask" id="health_bask" class="Checkbox"> Basketball</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_beac" id="health_beac" class="Checkbox"> Beach volleyball</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_biki" id="health_biki" class="Checkbox" > Biking</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_bill" id="health_bill" class="Checkbox"> Billiards / Pool</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_body" id="health_body" class="Checkbox"> Bodybuilding</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_extr" id="health_extr" class="Checkbox"> Extreme sports</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_figu" id="health_figu" class="Checkbox"> Figure skating</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_golf" id="health_golf" class="Checkbox"> Golf</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_hiki" id="health_hiki" class="Checkbox" > Hiking</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_hock" id="health_hock" class="Checkbox"> Hockey</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_holi" id="health_holi" class="Checkbox"> Holistic Health</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_inli" id="health_inli" class="Checkbox"> Inline skating</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_mart" id="health_mart" class="Checkbox"> Martial Arts</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_medi" id="health_medi" class="Checkbox" > Meditation</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_nutr" id="health_nutr" class="Checkbox"> Nutrition</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_rugb" id="health_rugb" class="Checkbox"> Rugby</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_runn" id="health_runn" class="Checkbox"> Running</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_sail" id="health_sail" class="Checkbox"> Sailing / Boating</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_scub" id="health_scub" class="Checkbox"> Scuba diving</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_skat" id="health_skat" class="Checkbox"> Skateboarding</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_skii" id="health_skii" class="Checkbox"> Skiing</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_snow" id="health_snow" class="Checkbox"> Snowboarding</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_socc" id="health_socc" class="Checkbox"> Soccer / Football</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_surf" id="health_surf" class="Checkbox"> Surfing</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_swim" id="health_swim" class="Checkbox"> Swimming</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_tenn" id="health_tenn" class="Checkbox"> Tennis / Racquet sports</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_tria" id="health_tria" class="Checkbox"> Triathlon</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_voll" id="health_voll" class="Checkbox"> Volleyball</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_walk" id="health_walk" class="Checkbox" > Walking</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_weig" id="health_weig" class="Checkbox"> Weight Training</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_wres" id="health_wres" class="Checkbox"> Wrestling</li>
-        <li><input type="checkbox" name="areaofinterest" value="health_yoga" id="health_yoga" class="Checkbox"> Yoga</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_aero" id="heh_aero" class="Checkbox"> Aerobics / Exercise</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_amer" id="heh_amer" class="Checkbox"> American Football</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_base" id="heh_base" class="Checkbox"> Baseball / Softball</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_bask" id="heh_bask" class="Checkbox"> Basketball</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_beac" id="heh_beac" class="Checkbox"> Beach volleyball</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_biki" id="heh_biki" class="Checkbox" > Biking</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_bill" id="heh_bill" class="Checkbox"> Billiards / Pool</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_body" id="heh_body" class="Checkbox"> Bodybuilding</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_extr" id="heh_extr" class="Checkbox"> Extreme sports</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_figu" id="heh_figu" class="Checkbox"> Figure skating</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_golf" id="heh_golf" class="Checkbox"> Golf</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_hiki" id="heh_hiki" class="Checkbox" > Hiking</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_hock" id="heh_hock" class="Checkbox"> Hockey</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_holi" id="heh_holi" class="Checkbox"> Holistic Health</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_inli" id="heh_inli" class="Checkbox"> Inline skating</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_mart" id="heh_mart" class="Checkbox"> Martial Arts</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_medi" id="heh_medi" class="Checkbox" > Meditation</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_nutr" id="heh_nutr" class="Checkbox"> Nutrition</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_rugb" id="heh_rugb" class="Checkbox"> Rugby</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_runn" id="heh_runn" class="Checkbox"> Running</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_sail" id="heh_sail" class="Checkbox"> Sailing / Boating</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_scub" id="heh_scub" class="Checkbox"> Scuba diving</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_skat" id="heh_skat" class="Checkbox"> Skateboarding</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_skii" id="heh_skii" class="Checkbox"> Skiing</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_snow" id="heh_snow" class="Checkbox"> Snowboarding</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_socc" id="heh_socc" class="Checkbox"> Soccer / Football</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_surf" id="heh_surf" class="Checkbox"> Surfing</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_swim" id="heh_swim" class="Checkbox"> Swimming</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_tenn" id="heh_tenn" class="Checkbox"> Tennis / Racquet sports</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_tria" id="heh_tria" class="Checkbox"> Triathlon</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_voll" id="heh_voll" class="Checkbox"> Volleyball</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_walk" id="heh_walk" class="Checkbox" > Walking</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_weig" id="heh_weig" class="Checkbox"> Weight Training</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_wres" id="heh_wres" class="Checkbox"> Wrestling</li>
+        <li><input type="checkbox" name="areaofinterest" value="heh_yoga" id="heh_yoga" class="Checkbox"> Yoga</li>
         </ul></fieldset>
         
 	<fieldset>

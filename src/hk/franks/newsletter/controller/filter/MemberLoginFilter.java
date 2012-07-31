@@ -1,5 +1,8 @@
 package hk.franks.newsletter.controller.filter;
 
+import hk.franks.newsletter.controller.utils.CommonUtil;
+import hk.franks.newsletter.controller.utils.ConstantUtil;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -11,53 +14,42 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.UsersModel;
+
 import org.apache.log4j.Logger;
 
-/**
- * 我的易食飯的权限过滤器
- * 
- * @author 胡圣朗
- * 
- */
-public class AuthorityConfirmFilter implements Filter {
+public class MemberLoginFilter implements Filter {
 	private static Logger logger = Logger
-			.getLogger(AuthorityConfirmFilter.class.getName()); // 日志对象;
+			.getLogger(MemberLoginFilter.class.getName()); // 日志对象;
 
-	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void doFilter(ServletRequest srequest, ServletResponse sresponse,
 			FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		logger.info("易食飯用户操作权限");
+		
 		HttpServletRequest request = (HttpServletRequest) srequest;
 		HttpServletResponse reponse = (HttpServletResponse) sresponse;
 
 		String path = request.getRequestURI();
-		String tmppatharray[] = path.split("canteen/");
-		if(tmppatharray.length>1)
-			path=tmppatharray[1];
-		Object authorization = request.getSession().getAttribute(
-				"authorization");
-		if ((authorization != null) && (((Boolean) authorization) == true)) {
+		
+		
+		UsersModel user = (UsersModel)request.getSession().getAttribute(ConstantUtil.SESSION_LOGIN_USER);
+		
+		if (!CommonUtil.isExNull(user)) {
 			chain.doFilter(srequest, sresponse);
-			logger.info("权限效验合法");
 		} else {
-			logger.info("权限效验不合法,请先登录!");
-			request.getSession().setAttribute("redirectpath", path);
+			logger.info("User not login, direct to login page.");
+			request.getSession().setAttribute(ConstantUtil.FILTER_REDIRECT_PATH, path);
 			((HttpServletResponse) sresponse).sendRedirect(request
-					.getContextPath() + "/account/login.jsp");
+					.getContextPath() + "/login.jsp?m=100");
 		}
 
 	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
 
 	}
 

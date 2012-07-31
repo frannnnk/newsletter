@@ -1,5 +1,7 @@
 package model;
 
+import hk.franks.newsletter.controller.utils.CommonUtil;
+
 import java.util.Date;
 
 public class UsersModel {
@@ -7,7 +9,7 @@ public class UsersModel {
 	private Integer userId;
 	private String password;
 	private String email;
-	private String userName;
+	private String screenName;
 	private String userRole;
 	private String userTitle;
 	private String gender;
@@ -18,6 +20,9 @@ public class UsersModel {
 	private String modifyUser;
 	private Date modifyDate;
 	private Date lastLogin;
+	private String areaOfInterest;
+	private String language;
+	private String location;
 	
 	
 	public Integer getUserId() {
@@ -33,16 +38,22 @@ public class UsersModel {
 		this.password = password;
 	}
 	public String getEmail() {
+		if (!CommonUtil.isExNull(email)) {
+			email = email.toLowerCase();
+		}
 		return email;
 	}
 	public void setEmail(String email) {
+		if (!CommonUtil.isExNull(email)) {
+			email = email.toLowerCase();
+		}
 		this.email = email;
 	}
-	public String getUserName() {
-		return userName;
+	public String getScreenName() {
+		return screenName;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setScreenName(String screenName) {
+		this.screenName = screenName;
 	}
 	public String getUserRole() {
 		return userRole;
@@ -103,6 +114,24 @@ public class UsersModel {
 	}
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+	public String getAreaOfInterest() {
+		return areaOfInterest;
+	}
+	public void setAreaOfInterest(String areaOfInterest) {
+		this.areaOfInterest = areaOfInterest;
+	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 	

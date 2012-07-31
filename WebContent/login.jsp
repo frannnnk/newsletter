@@ -16,8 +16,62 @@
 
 
 <script>
+
+
+$.noty.defaults = {
+		  layout: 'topCenter',
+		  theme: 'default',
+		  type: 'alert',
+		  text: '',
+		  dismissQueue: false, // If you want to use queue feature set this true
+		  template: '<div class="noty_message font_NeoSansRegular"><span class="noty_text"></span><div class="noty_close"></div></div>',
+		  animation: {
+		    open: {height: 'toggle'},
+		    close: {height: 'toggle'},
+		    easing: 'swing',
+		    speed: 500 // opening & closing animation speed
+		  },
+		  timeout: 3000, // delay for closing event. Set false for sticky notifications
+		  force: false, // adds notification to the beginning of queue when set to true
+		  modal: false,
+		  closeWith: ['click'], // ['click', 'button', 'hover']
+		  callback: {
+		    onShow: function() {},
+		    afterShow: function() {},
+		    onClose: function() {},
+		    afterClose: function() {}
+		  },
+		  buttons: false // an array of buttons
+};
+
+
+
 $(document).ready(function() {
-  $('#enter').delay(1800).fadeIn(1000);
+  	
+  	
+  	<%
+if ("100".equalsIgnoreCase(request.getParameter("m"))) {
+%>
+
+
+var nbn = noty({text: 'You need to login first to access this page.',type: 'information',modal: false,dismissQueue: true,force: true,
+					 animation: {
+				    open: {height: 'toggle'},
+				    close: {height: 'toggle'},
+				    easing: 'swing',
+				    speed: 500 // opening & closing animation speed
+				  },
+				 timeout: 4000});
+				 
+				 
+
+<%
+
+
+}
+
+%>
+  	
 });
 
 
@@ -61,14 +115,13 @@ function loginError(msg){
 }
 
 
+
+
+
+
+
 </script>
 
-<!--[if IE]>
-        <link rel="stylesheet" type="text/css"
-			href="<%=request.getContextPath()%>/css/main/bc_index_IE_only.css" />
-		<link rel="stylesheet" type="text/css"
-			href="<%=request.getContextPath()%>/css/main/bc_common_IE_only.css" />
-<![endif]-->
 </head>
 <body>
 <form action="" name="loginForm" id="loginForm">

@@ -12,6 +12,7 @@ import java.util.Date;
 import model.UsersModel;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.components.If;
 
 
 /**
@@ -91,42 +92,49 @@ public class AccountRelateDao extends DaoSupport {
 	
 	
 
-	/**
-	 * 新增账户
-	 * 
-	 * @param userid
-	 *            用户ID 就是EMAIL
-	 * @param nickname
-	 *            用户昵称
-	 * @param password
-	 *            用户密码（这里是加密后的密码）
-	 * @return 成功标志 true-成功；false-失败;
-	 */
-	public boolean insertAccount(String userid, String nickname,
-			String password, String createTime) {
-		logger.debug("插入账户表信息");
+	
+	public boolean insertAccount(UsersModel user) {
+		if (CommonUtil.isExNull(user) || CommonUtil.isExNull(user.getEmail())) {
+			return false;
+		}
+		
 		Connection con = getConnection();
-		String sql = "INSERT INTO ACCOUNT(USERID, CREATETIME, PASSWORD, NICKNAME, CREDITVALUE, ISCONFIRM) VALUES(?,?,?,?,0,0)";
-		PreparedStatement pres = null;
+		 String sql =	"INSERT INTO USERS(password,email,screen_name,user_role,user_title,gender,phone,status,create_user,create_date,modify_user,modify_date,last_login,area_of_interest,language,location)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ".toUpperCase();
+		PreparedStatement pre = null;
 		boolean flag = false;
 		try {
-			pres = con.prepareStatement(sql);
-			pres.setString(1, userid);
-			pres.setString(2, createTime);
-			pres.setString(3, password);
-			pres.setString(4, nickname);
-			pres.execute();
+			pre = con.prepareStatement(sql);
+			
+			pre.setString(1, user.getPassword());
+			pre.setString(2, user.getEmail());
+			pre.setString(3, user.getScreenName());
+			pre.setString(4, user.getUserRole());
+			pre.setString(5, user.getUserTitle());
+			pre.setString(6, user.getGender());
+			pre.setString(7, user.getPhone());
+			pre.setString(8, user.getStatus());
+			pre.setString(9, user.getCreateUser());
+			pre.setDate(10,   (null == user.getCreateDate())?null:new java.sql.Date(   user.getCreateDate().getTime())   );
+			pre.setString(11, user.getModifyUser());
+			pre.setDate(12,   (null == user.getModifyDate())?null:new java.sql.Date(   user.getModifyDate().getTime())  );
+			pre.setDate(13,   (null == user.getLastLogin())?null:new java.sql.Date(   user.getLastLogin().getTime()));
+			pre.setString(14, user.getAreaOfInterest());
+			pre.setString(15, user.getLanguage());
+			pre.setString(16, user.getLocation());
+			
+			pre.execute();
 			flag = true;
-			logger.debug("插入账户表信息成功");
+			logger.debug("An account is just created successfully.");
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage());
 			flag = false;
 		} finally {// 关闭资源.
 			try {
-				closeJDBCResource(pres);
+				closeJDBCResource(pre);
 				closeJDBCResource(con);
 			} catch (Exception e) {
-
+				e.printStackTrace();
 				logger.error(e.getMessage());
 			}
 		}
@@ -140,28 +148,26 @@ public class AccountRelateDao extends DaoSupport {
 	 *            用户ID
 	 * @return
 	 */
-	public boolean checkAccount(String userid) {
+	public boolean checkAccount(String userEmail) {
 		logger.debug("查询账户名是否存在");
 		Connection con = getConnection();
-		String sql = "SELECT COUNT(USERID) FROM ACCOUNT WHERE USERID=?";
+		String sql = "SELECT COUNT(EMAIL) FROM USERS WHERE EMAIL=?";
 		PreparedStatement pres = null;
 		ResultSet set = null;
 		boolean flag = false;
 		try {
 			pres = con.prepareStatement(sql);
-			pres.setString(1, userid);
+			pres.setString(1, userEmail);
 			set = pres.executeQuery();
 			set.next();
 			int accountNum = set.getInt(1);
 			if (accountNum == 0) {
 				flag = true;
-				logger.debug("账户已经不存在");
 			} else {
 				flag = false;
-				logger.debug("账户已经存在");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 			logger.error(e.getMessage());
 			flag = false;
 		} finally {// 关闭资源.
@@ -170,8 +176,8 @@ public class AccountRelateDao extends DaoSupport {
 				closeJDBCResource(pres);
 				closeJDBCResource(con);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				logger.error(e.getMessage());
+				e.printStackTrace();
 			}
 		}
 		return flag;

@@ -1,5 +1,7 @@
 package hk.franks.newsletter.controller.account;
 
+import java.util.Date;
+
 import hk.franks.newsletter.common.CommonFunction;
 import hk.franks.newsletter.controller.utils.CommonUtil;
 import hk.franks.newsletter.controller.utils.ConstantUtil;
@@ -97,9 +99,71 @@ public class AccountAction extends ActionSupport {
 			String email = request.getParameter("email");
 			String language = request.getParameter("language");
 			String location = request.getParameter("location");
+			String screenName = request.getParameter("screenname");
+			String gender = request.getParameter("gender");
 			
 			
-			return null;
+			// check email
+			
+			if (!logic.checkAccountIsExist(email)) {
+				logger.debug("Account "+email +" already exist.");
+				
+				AjaxReturnMessageModel returnMsg = new AjaxReturnMessageModel();
+				returnMsg.setAction("register");
+				returnMsg.setResult(ConstantUtil.RESULT_FAILED);
+				returnMsg.setMessage("Email '"+email+"' was already taken, please choose another email.");
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				String json = gson.toJson(returnMsg);
+				response.getWriter().print(json);
+				
+				return null;
+			}
+			
+			// save db
+			
+			UsersModel user = new UsersModel();
+			user.setAreaOfInterest(areaOfInterest);
+			user.setEmail(email);
+			user.setCreateDate(new Date());
+			user.setModifyDate(new Date());
+			//users.setLastLogin(new Date());
+			user.setStatus(ConstantUtil.USER_STATUS_PENDING_APPROVAL);
+			user.setScreenName(screenName);
+			user.setLanguage(language);
+			user.setLocation(location);
+			user.setGender(gender);
+			user.setUserRole(ConstantUtil.USER_ROLE_COMMON_USER);
+			user.setPassword("N/A");
+			user.setCreateUser("SELF");
+			
+			if ( logic.register(user) ) {
+				logger.debug("User register succeed.");
+				
+				
+				AjaxReturnMessageModel returnMsg = new AjaxReturnMessageModel();
+				returnMsg.setAction("register");
+				returnMsg.setResult(ConstantUtil.RESULT_SUCCEED);
+				returnMsg.setMessage("Thank you.");
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				String json = gson.toJson(returnMsg);
+				response.getWriter().print(json);
+				return null;
+				
+				
+				
+			} else {
+				logger.debug("User register failed.");
+				
+				
+				AjaxReturnMessageModel returnMsg = new AjaxReturnMessageModel();
+				returnMsg.setAction("register");
+				returnMsg.setResult(ConstantUtil.RESULT_FAILED);
+				returnMsg.setMessage("System Busy, Please try again later.");
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				String json = gson.toJson(returnMsg);
+				response.getWriter().print(json);
+				return null;
+			}
 			
 		}else {
 			return null;
