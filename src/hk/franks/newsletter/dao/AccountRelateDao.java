@@ -2,12 +2,15 @@ package hk.franks.newsletter.dao;
 
 import hk.franks.newsletter.common.CommonFunction;
 import hk.franks.newsletter.controller.utils.CommonUtil;
+import hk.franks.newsletter.controller.utils.ConstantUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import model.UsersModel;
 
@@ -55,6 +58,8 @@ public class AccountRelateDao extends DaoSupport {
 				resultModel.setUserId(rs.getInt("USER_ID"));
 				resultModel.setLastLogin(rs.getDate("LAST_LOGIN"));
 				resultModel.setStatus(rs.getString("STATUS"));
+				resultModel.setUserRole(rs.getString("USER_ROLE"));
+				resultModel.setLastLogin(rs.getDate("LAST_LOGIN"));
 			}
 			
 			
@@ -79,6 +84,106 @@ public class AccountRelateDao extends DaoSupport {
 		}
 		
 		return resultModel;
+	}
+	
+	
+	
+	public int approveUser(String userid, String modifiedBy) {
+		
+		
+		Connection con = getConnection();
+		String sql = "UPDATE USERS SET STATUS = ? , MODIFY_USER = ? WHERE USER_ID = ? ";
+		
+		PreparedStatement pres = null;
+		ResultSet rs = null;
+		
+		try {
+			pres = con.prepareStatement(sql);
+			pres.setString(1, ConstantUtil.USER_STATUS_NORMAL);
+			pres.setString(2, modifiedBy);
+			pres.setString(3, userid);
+			
+			logger.debug("Update User Status: userid:"+userid+" -- > "+ConstantUtil.USER_STATUS_NORMAL+" by "+modifiedBy);
+			return pres.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			return -1;
+		} finally {
+			try {
+				closeJDBCResource(rs);
+				closeJDBCResource(pres);
+				closeJDBCResource(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e.getMessage());
+			}
+		}
+		
+		
+	}
+	
+	
+	
+	
+	public List<UsersModel> getWaitingApprovalUserList() {
+		
+		
+		Connection con = getConnection();
+		String sql = "SELECT * FROM USERS WHERE STATUS = ? ";
+		
+		PreparedStatement pres = null;
+		ResultSet rs = null;
+		List<UsersModel> resultList = null;
+
+		
+		try {
+			pres = con.prepareStatement(sql);
+			pres.setString(1, ConstantUtil.USER_STATUS_PENDING_APPROVAL);
+			
+			rs = pres.executeQuery();
+			
+			
+			while (rs.next()){
+				
+				if (CommonUtil.isExNull(resultList)) {
+					resultList = new ArrayList<UsersModel>();
+				}
+				
+				UsersModel resultModel = null;
+				resultModel = new UsersModel();
+				resultModel.setEmail(rs.getString("EMAIL"));
+				resultModel.setUserId(rs.getInt("USER_ID"));
+				resultModel.setLastLogin(rs.getDate("LAST_LOGIN"));
+				resultModel.setStatus(rs.getString("STATUS"));
+				resultModel.setScreenName(rs.getString("SCREEN_NAME"));
+				resultModel.setGender(rs.getString("GENDER"));
+				resultModel.setLocation(rs.getString("LOCATION"));
+				resultModel.setAreaOfInterest(rs.getString("AREA_OF_INTEREST"));
+				resultModel.setCreateDate(rs.getDate("CREATE_DATE"));
+				resultModel.setLanguage(rs.getString("LANGUAGE"));
+				resultList.add(resultModel);
+			}
+			
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		} finally {
+			try {
+				closeJDBCResource(rs);
+				closeJDBCResource(pres);
+				closeJDBCResource(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e.getMessage());
+			}
+		}
+		
+		return resultList;
+		
 	}
 	
 	

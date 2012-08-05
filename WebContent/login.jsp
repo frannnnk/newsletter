@@ -1,3 +1,5 @@
+<%@page import="hk.franks.newsletter.controller.utils.CommonUtil"%>
+<%@page import="hk.franks.newsletter.controller.utils.ConstantUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="hk.franks.newsletter.pojo.RestaurantPojo"%>
@@ -68,7 +70,49 @@ var nbn = noty({text: 'You need to login first to access this page.',type: 'info
 <%
 
 
-}
+} else if ("101".equalsIgnoreCase(request.getParameter("m"))) {
+
+%>
+var nbn = noty({text: 'You need to have the administrator role to access this page.',type: 'information',modal: false,dismissQueue: true,force: true,
+					 animation: {
+				    open: {height: 'toggle'},
+				    close: {height: 'toggle'},
+				    easing: 'swing',
+				    speed: 500 // opening & closing animation speed
+				  },
+				 timeout: 4000});
+
+<%
+
+}  else if ("102".equalsIgnoreCase(request.getParameter("m"))) {
+
+%>
+var nbn = noty({text: 'You are already logged in. However you dont have the administartor role to access this page.',type: 'error',modal: false,dismissQueue: true,force: true,
+					 animation: {
+				    open: {height: 'toggle'},
+				    close: {height: 'toggle'},
+				    easing: 'swing',
+				    speed: 500 // opening & closing animation speed
+				  },
+				 timeout: false});
+
+<%
+
+} else if ("103".equalsIgnoreCase(request.getParameter("m"))) {
+
+%>
+var nbn = noty({text: 'Your account is currently pending approval.<br/>We will process your registration in 2 days, once your account is approved, we will notice you by email.',type: 'error',modal: false,dismissQueue: true,force: true,
+					 animation: {
+				    open: {height: 'toggle'},
+				    close: {height: 'toggle'},
+				    easing: 'swing',
+				    speed: 500 // opening & closing animation speed
+				  },
+				 timeout: false});
+
+<%
+
+} 
 
 %>
   	
@@ -80,7 +124,7 @@ function login(){
 	// encrypt password
 	$('#encryptedPassword').val(hex_md5($('#encryptedPassword').val()));
 
-	$.post("account.action?action=login", $('#loginForm').serialize(),function(data){
+	$.post("<%=request.getContextPath()%>/account.action?action=login", $('#loginForm').serialize(),function(data){
 			//alert(data);
 			
 			var obj = jQuery.parseJSON(data);
@@ -98,7 +142,16 @@ function login(){
 
 function loginSucceed(){
 	$('#encryptedPassword').val("");
-	window.open("member/main.jsp","_self");
+	<% 
+		String path = "";
+		if(!CommonUtil.isExNull((String)session.getAttribute(ConstantUtil.FILTER_REDIRECT_PATH))) {
+			path = (String)session.getAttribute(ConstantUtil.FILTER_REDIRECT_PATH);
+			session.setAttribute(ConstantUtil.FILTER_REDIRECT_PATH,"");
+		} else {
+			path = "member/main.jsp";
+		}
+	 %>
+	window.open("<%=path%>","_self");
 }
 
 

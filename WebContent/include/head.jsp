@@ -6,7 +6,7 @@
 <script src="<%=request.getContextPath()%>/js/md5.js"></script>
 
 
-<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/noty/jquery.noty.js"></script>
 
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/noty/layouts/top.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/noty/layouts/topLeft.js"></script>

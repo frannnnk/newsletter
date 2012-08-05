@@ -18,9 +18,9 @@ import model.UsersModel;
 
 import org.apache.log4j.Logger;
 
-public class MemberLoginFilter implements Filter {
+public class AdminLoginFilter implements Filter {
 	private static Logger logger = Logger
-			.getLogger(MemberLoginFilter.class.getName()); // 日志对象;
+			.getLogger(AdminLoginFilter.class.getName()); // 日志对象;
 
 	public void destroy() {
 
@@ -38,17 +38,19 @@ public class MemberLoginFilter implements Filter {
 		UsersModel user = (UsersModel)request.getSession().getAttribute(ConstantUtil.SESSION_LOGIN_USER);
 		
 		if (!CommonUtil.isExNull(user)) {
-			if (ConstantUtil.USER_STATUS_PENDING_APPROVAL.equals(user.getStatus())) {
-				request.getSession().setAttribute(ConstantUtil.FILTER_REDIRECT_PATH, "");
+			if (!ConstantUtil.USER_ROLE_ADMIN_USER.equals(user.getUserRole())) {
+				logger.info("User "+user.getEmail()+" tring to login to admin page. Role:"+user.getUserRole());
+				request.getSession().setAttribute(ConstantUtil.FILTER_REDIRECT_PATH, path);
 				((HttpServletResponse) sresponse).sendRedirect(request
-						.getContextPath() + "/login.jsp?m=103");
+						.getContextPath() + "/login.jsp?m=102");
+			} else {
+				chain.doFilter(srequest, sresponse);
 			}
-			chain.doFilter(srequest, sresponse);
 		} else {
 			logger.info("User not login, direct to login page.");
 			request.getSession().setAttribute(ConstantUtil.FILTER_REDIRECT_PATH, path);
 			((HttpServletResponse) sresponse).sendRedirect(request
-					.getContextPath() + "/login.jsp?m=100");
+					.getContextPath() + "/login.jsp?m=101");
 		}
 
 	}

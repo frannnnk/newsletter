@@ -1,6 +1,5 @@
 package hk.franks.newsletter.logic;
 
-import hk.franks.newsletter.common.CommonFunction;
 import hk.franks.newsletter.common.Constant;
 import hk.franks.newsletter.controller.utils.CommonUtil;
 import hk.franks.newsletter.dao.AccountRelateDao;
@@ -9,7 +8,7 @@ import hk.franks.newsletter.logic.encryption.MD5;
 import hk.franks.newsletter.logic.mail.MailFuncion;
 
 import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
+import java.util.List;
 
 
 import model.UsersModel;
@@ -17,13 +16,8 @@ import model.UsersModel;
 import org.apache.log4j.Logger;
 
 
-
-/**
- * 账户相关逻辑类（提供账户注册，登录等操作）
- * 
- * @author 胡圣朗
- */
 public class AccountRelateLogic {
+	
 	private static Logger logger = Logger.getLogger(AccountRelateLogic.class
 			.getName()); // 日志对象;
 	private AccountRelateDao dao = new AccountRelateDao(); // 数据库操作对象.
@@ -34,15 +28,7 @@ public class AccountRelateLogic {
 	
 	
 	
-	/**
-	 * 登录效验
-	 * 
-	 * @param userid
-	 *            用户的EMAIL地址
-	 * @param password
-	 *            encrypted Password.
-	 * @return
-	 */
+
 	public UsersModel loginValidate(String userid, String encrypedPassword) {
 		logger.debug("Executing loginValidate");
 		UsersModel user = null;
@@ -59,6 +45,35 @@ public class AccountRelateLogic {
 		}
 		logger.debug("Executing loginValidate Complete");
 		return user;
+	}
+	
+	
+	
+	public int approveUser(String userid, String modifiedBy) {
+		try {
+			return dao.approveUser(userid, modifiedBy);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			return -1;
+		}
+		
+	}
+	
+	
+	
+	public List<UsersModel> getWaitingApprovalUserList() {
+		logger.debug("Executing getWaitingApprovalUserList");
+		try {
+			return dao.getWaitingApprovalUserList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			return null;
+		} finally {
+			logger.debug("Executing getWaitingApprovalUserList Complete");
+		}
 	}
 	
 	
